@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>หัดเขียนภาษาไทย</title>
+<title>แบบฝึกหัดเขียนพยัญชนะไทย</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Mali:wght@400;600;700&family=Kodchasan:wght@400;600;700&display=swap" rel="stylesheet">
@@ -62,7 +62,7 @@ main {
   padding: 20px 16px 56px 42px;
 }
 
-/* ส่วนหัวและการตั้งค่า */
+/* ส่วนเฮดและตั้งค่า */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -122,7 +122,7 @@ h1 {
 }
 .theme-btn:hover { border-color: var(--btn); }
 
-/* แท็บหมวดหมู่ */
+/* แถบหมวดหมู่ */
 .tabs {
   display: flex;
   gap: 8px;
@@ -362,7 +362,7 @@ canvas {
   box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
 }
 
-/* ปุ่มบันทึกเส้นทางเองทรงแคปซูลพร้อมไฟ LED 3 มิติเรืองแสง */
+/* ปุ่มบันทึกเส้นทางเองทรงแคปซูล+ไฟ*/
 .acts button.rec-btn {
   display: inline-flex;
   align-items: center;
@@ -496,7 +496,7 @@ canvas {
   outline-offset: 1px;
 }
 
-/* แถบขีดสีเขียวมินต์เรืองแสงที่มุมขวาบนสำหรับตัวอักษรที่มีเส้นมาตรฐานแล้ว */
+/* แถบขีดสีเขียวมุมขวาบนสำหรับตัวอักษรที่มีเส้นมาตรฐานแล้ว */
 .grid button.has-guide::after {
   content: "";
   position: absolute;
@@ -659,16 +659,16 @@ td.muted-cell {
 <main>
   <div class="top-bar">
     <div>
-      <h1>หัดเขียนภาษาไทย</h1>
-      <p class="sub">เลือกตัวอักษร แล้วใช้นิ้วหรือเมาส์ลากเส้นเขียนทับตัวจาง ๆ บนกระดาน</p>
+      <h1>แบบฝึกหัดเขียนพยัญชนะไทย</h1>
+      <p class="sub">เลือกตัวอักษร แล้วใช้นิ้วหรือปากกาลากเส้นเขียนทับเงาตัวอักษรบนกระดาน</p>
     </div>
     <div class="top-controls">
       <label class="control-pill" title="เลือกรูปแบบตัวอักษร">
         <span>ฟอนต์:</span>
         <select id="fontSel">
-          <option value="Sarabun" selected>Sarabun (มาตรฐานแบบเรียน)</option>
-          <option value="Mali">Mali (ลายมือเด็กนักเรียน)</option>
-          <option value="Kodchasan">Kodchasan (มีหัวร่วมสมัย)</option>
+          <option value="Sarabun" selected>Sarabun (มาตรฐาน)</option>
+          <option value="Mali">Mali (ลายมือ)</option>
+          <option value="Kodchasan">Kodchasan (ร่วมสมัย)</option>
         </select>
       </label>
       <label class="control-pill" title="เลือกความเร็วเสียงอ่าน">
@@ -715,7 +715,7 @@ td.muted-cell {
         <button id="demo">ดูวิธีเขียน</button>
         <button id="say">ฟังเสียง</button>
         <button id="clr" class="alt">ล้างกระดาน</button>
-        <button id="gh" class="alt">ซ่อนตัวจาง</button>
+        <button id="gh" class="alt">ซ่อนเงา</button>
         <button id="recToggle" class="rec-btn">
           <span class="rec-dot"></span>
           <span id="recLabel">บันทึกเส้นทางเอง</span>
@@ -723,7 +723,7 @@ td.muted-cell {
       </div>
 
       <div class="rec-box" id="recBox" hidden>
-        <p><b>โหมดบันทึกเส้นทาง:</b> ลากเส้นทับตัวจางตามลำดับได้เลย ทันทีที่ปล่อยเมาส์ระบบจะ <b>ดัดเส้นเบี้ยวให้ตรงเป๊ะและโค้งมนสวยอัตโนมัติ</b></p>
+        <p><b>โหมดบันทึกเส้นทาง:</b> ลากเส้นทับเงาตามลำดับได้เลย ทันทีที่ปล่อยปากการะบบจะ <b>ดัดเส้นเบี้ยวให้ตรงเป๊ะและโค้งมนสวยอัตโนมัติ</b></p>
         <div class="acts">
           <label class="control-pill" title="ตัวช่วยลดมือสั่นเวลาใช้เมาส์บันทึกเส้นทาง">
             <span>กันสั่น:</span>
