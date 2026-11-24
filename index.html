@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>หัดเขียนภาษาไทย</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Mali:wght@400;600;700&family=Kodchasan:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f4f7fb;
+  --card: #ffffff;
+  --ink: #1e293b;
+  --muted: #64748b;
+  --rule: #cbd5e1;
+  --margin: #fca5a5;
+  --mid: #d97706;
+  --high: #dc2626;
+  --low: #2563eb;
+  --btn: #1e293b;
+  --btnt: #ffffff;
+  --ok: #059669;
+  --bad: #dc2626;
+  --app-font: "Sarabun";
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+:root[data-theme="dark"] {
+  --paper: #0f172a;
+  --card: #1e293b;
+  --ink: #f1f5f9;
+  --muted: #94a3b8;
+  --rule: #334155;
+  --margin: #7f1d1d;
+  --mid: #fbbf24;
+  --high: #f87171;
+  --low: #60a5fa;
+  --btn: #38bdf8;
+  --btnt: #0f172a;
+  --ok: #34d399;
+  --bad: #f87171;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.6 var(--app-font), system-ui, -apple-system, sans-serif;
+  background-image: linear-gradient(90deg, transparent 28px, var(--margin) 28px, var(--margin) 29.5px, transparent 29.5px);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+main {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 20px 16px 56px 42px;
+}
+
+/* ส่วนหัวและการตั้งค่า */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+h1 {
+  font-size: 28px;
+  margin: 0;
+  line-height: 1.25;
+  font-weight: 700;
+}
+.sub {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 4px 0 0;
+}
+.top-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.control-pill {
+  background: var(--card);
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--ink);
+}
+.control-pill select {
+  font: inherit;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+.theme-btn {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--card);
+  color: var(--ink);
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.theme-btn:hover { border-color: var(--btn); }
+
+/* แท็บหมวดหมู่ */
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.tabs button {
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1.5px solid var(--rule);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.tabs button[aria-selected="true"] {
+  background: var(--btn);
+  color: var(--btnt);
+  border-color: var(--btn);
+}
+button:focus-visible {
+  outline: 3px solid var(--low);
+  outline-offset: 2px;
+}
+
+/* กระดานฝึกเขียน */
+.pad {
+  background: var(--card);
+  border: 1.5px solid var(--rule);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+.stage {
+  position: relative;
+  width: 330px;
+  max-width: 100%;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  border: 1.5px solid var(--rule);
+  overflow: hidden;
+  background: var(--card);
+  touch-action: none;
+  flex-shrink: 0;
+}
+.ghost {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 18%;
+  color: var(--rule);
+  opacity: 0.72;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  font-family: var(--app-font), sans-serif;
+  font-weight: 400;
+  transition: opacity 0.15s;
+}
+.ghost.center-mark {
+  padding-bottom: 0;
+  padding-top: 42%;
+  padding-left: 26%;
+}
+.ghost.center-mark.wide-mark {
+  padding-left: 26%;
+}
+.ghost.center-mark.tri-mark {
+  padding-left: 34%;
+}
+.ghost.center-bottom {
+  padding-bottom: 34%;
+  padding-left: 20%;
+}
+.ghost-solo-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.ghost-dash {
+  display: inline-block;
+  transform: scaleX(1.12);
+}
+.ghost-post {
+  display: inline-block;
+  margin-left: 0.14em;
+}
+.ghost-vowel-top {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(14%, 6%) scale(1.24);
+}
+.ghost-vowel-top.is-han {
+  transform: translate(-18%, -12%) scale(1.06);
+}
+.ghost-vowel-top.is-nikhahit {
+  transform: translate(-24%, -6%) scale(1.38);
+}
+.ghost-vowel-bot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(0%, -14%) scale(0.92, 1.24);
+}
+.ghost-vowel-bot.is-u {
+  transform: translate(4%, -16%) scale(1.15, 1.22);
+}
+.ghost.off { opacity: 0; }
+#dm { pointer-events: none; z-index: 1; }
+#cv {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+  z-index: 2;
+}
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+#pen {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: #f97316;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 5px rgba(249, 115, 22, 0.32);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ข้อมูลตัวอักษรและปุ่มควบคุม */
+.info {
+  flex: 1;
+  min-width: 240px;
+}
+.info .big {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.inline-mark {
+  display: inline-block;
+  width: 0.65em;
+  text-align: center;
+  transform: translate(0.18em, 0);
+  line-height: 1;
+}
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--rule);
+}
+.nav-btn {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: 0.15s;
+}
+.nav-btn:hover:not(:disabled) {
+  border-color: var(--btn);
+  background: var(--card);
+}
+.nav-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.nav-pos {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.info p {
+  margin: 4px 0 14px;
+  color: var(--muted);
+  font-size: 16px;
+}
+.acts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.acts button {
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--btn);
+  background: var(--btn);
+  color: var(--btnt);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.acts button:hover { opacity: 0.92; transform: translateY(-1px); }
+.acts button:active { transform: translateY(0); }
+.acts button.alt {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--rule);
+}
+.acts button.alt:hover { border-color: var(--ink); }
+.acts button.speaking {
+  background: linear-gradient(135deg, #0d9488 0%, #059669 100%);
+  border-color: #34d399;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+/* ปุ่มบันทึกเส้นทางเองทรงแคปซูลพร้อมไฟ LED 3 มิติเรืองแสง */
+.acts button.rec-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: var(--card);
+  color: var(--ink);
+  border: 1.5px solid var(--rule);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.rec-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fca5a5, #ef4444 65%, #b91c1c);
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+.acts button.rec-btn.rec-active {
+  background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+  border-color: #34d399;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+.acts button.rec-btn.rec-active .rec-dot {
+  background: radial-gradient(circle at 35% 35%, #ffffff, #6ee7b7 55%, #10b981);
+  box-shadow: 0 0 10px #6ee7b7, 0 0 18px #34d399;
+  animation: ledPulse 1.25s infinite ease-in-out;
+}
+@keyframes ledPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.22); opacity: 0.78; }
+}
+
+/* กล่องโหมดบันทึกเส้นทาง */
+.rec-box {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1.5px solid #10b981;
+  background: rgba(16, 185, 129, 0.06);
+}
+.rec-box p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--ink);
+}
+.rec-box textarea {
+  width: 100%;
+  height: 82px;
+  font: 12px/1.45 monospace;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  resize: vertical;
+  margin-top: 10px;
+}
+
+/* คำอธิบายสี */
+.legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0 0 12px;
+  align-items: center;
+}
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.mint-pill-icon {
+  display: inline-block;
+  width: 14px;
+  height: 5px;
+  border-radius: 99px;
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.75);
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* ตารางตัวอักษร */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+  gap: 8px;
+}
+.grid button {
+  position: relative;
+  font: inherit;
+  background: var(--card);
+  color: var(--ink);
+  border: 1.5px solid var(--rule);
+  border-left-width: 5px;
+  border-radius: 10px;
+  padding: 8px 4px 6px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.25;
+  transition: transform 0.1s, border-color 0.15s;
+}
+.grid button:hover { transform: translateY(-2px); }
+.grid button b {
+  display: block;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+.grid button small {
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.grid button.sel {
+  outline: 3px solid var(--btn);
+  outline-offset: 1px;
+}
+
+/* แถบขีดสีเขียวมินต์เรืองแสงที่มุมขวาบนสำหรับตัวอักษรที่มีเส้นมาตรฐานแล้ว */
+.grid button.has-guide::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 14px;
+  height: 4.5px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #34d399, #10b981);
+  box-shadow: 0 0 7px rgba(16, 185, 129, 0.85);
+}
+
+/* สถานะปุ่มวรรณยุกต์ที่ผันไม่ได้ตามหลักไตรยางศ์ */
+.grid button.disabled-tone {
+  opacity: 0.42;
+  cursor: not-allowed;
+  background: var(--paper);
+}
+.grid button.disabled-tone:hover { transform: none; }
+
+.grid button.warn-combo {
+  border-style: dashed;
+  opacity: 0.65;
+}
+.orth-alert {
+  background: rgba(217, 119, 6, 0.1);
+  border: 1px solid var(--mid);
+  color: var(--ink);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.grid.v {
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+}
+.grid.v button { border-left-width: 1.5px; }
+.grid.v button b { font-size: 26px; }
+.grid.v button b.mark-solo-top {
+  display: inline-block;
+  transform: translate(8px, 10px);
+}
+.grid.v button b.mark-solo-bot {
+  display: inline-block;
+  transform: translate(6px, -6px);
+}
+.grid.v button b.mark-solo-bot {
+  display: inline-block;
+  transform: translate(4px, -6px);
+}
+
+/* กล่องแถบเลือกพยัญชนะต้นและข้อมูลไตรยางศ์ */
+.context-bar {
+  background: var(--card);
+  border: 1.5px solid var(--rule);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.context-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.context-select {
+  font: inherit;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--btn);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+}
+.tri-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.tri-badge.m { background: var(--mid); }
+.tri-badge.h { background: var(--high); }
+.tri-badge.l { background: var(--low); }
+
+.tri-rule-box {
+  background: var(--card);
+  border: 1.5px solid var(--rule);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.tri-rule-box p {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+
+.m { border-left-color: var(--mid) !important; }
+.h { border-left-color: var(--high) !important; }
+.l { border-left-color: var(--low) !important; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background: var(--card);
+  border: 1.5px solid var(--rule);
+  border-radius: 12px;
+  font-size: 16px;
+  overflow: hidden;
+}
+th, td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+th { background: rgba(148, 163, 184, 0.12); font-weight: 700; }
+td.t {
+  font-size: 26px;
+  font-weight: 700;
+}
+td.clickable-tone {
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+td.clickable-tone:hover {
+  background: rgba(16, 185, 129, 0.12);
+}
+td.muted-cell {
+  color: var(--muted);
+  font-size: 18px;
+}
+.note {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 0 0 12px;
+}
+[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+  .pad { justify-content: center; padding: 14px; }
+  .stage { width: 300px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="top-bar">
+    <div>
+      <h1>หัดเขียนภาษาไทย</h1>
+      <p class="sub">เลือกตัวอักษร แล้วใช้นิ้วหรือเมาส์ลากเส้นเขียนทับตัวจาง ๆ บนกระดาน</p>
+    </div>
+    <div class="top-controls">
+      <label class="control-pill" title="เลือกรูปแบบตัวอักษร">
+        <span>ฟอนต์:</span>
+        <select id="fontSel">
+          <option value="Sarabun" selected>Sarabun (มาตรฐานแบบเรียน)</option>
+          <option value="Mali">Mali (ลายมือเด็กนักเรียน)</option>
+          <option value="Kodchasan">Kodchasan (มีหัวร่วมสมัย)</option>
+        </select>
+      </label>
+      <label class="control-pill" title="เลือกความเร็วเสียงอ่าน">
+        <span>เสียงอ่าน:</span>
+        <select id="speedSel">
+          <option value="0.78" selected>ปกติ</option>
+          <option value="0.58">ช้า (ฝึกฟังชัด)</option>
+        </select>
+      </label>
+      <label class="control-pill" title="ปรับขนาดเส้นปากกา">
+        <span>เส้น:</span>
+        <select id="brushSel">
+          <option value="7">เล็ก</option>
+          <option value="10" selected>กลาง</option>
+          <option value="14">หนา</option>
+        </select>
+      </label>
+      <button id="themeBtn" class="theme-btn" title="สลับโหมดสว่าง/มืด">โหมดมืด</button>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-t="c" aria-selected="true">พยัญชนะ (44 ตัว)</button>
+    <button role="tab" data-t="v" aria-selected="false">สระ (28 รูป)</button>
+    <button role="tab" data-t="t" aria-selected="false">วรรณยุกต์ (4 รูป)</button>
+  </div>
+
+  <section class="pad" id="pad">
+    <div class="stage" id="stage">
+      <div class="ghost" id="ghost"></div>
+      <canvas id="dm"></canvas>
+      <div id="pen" hidden></div>
+      <canvas id="cv"></canvas>
+    </div>
+    <div class="info">
+      <div class="nav-row">
+        <button id="prevBtn" class="nav-btn" title="ตัวก่อนหน้า (ลูกศรซ้าย)">◀ ก่อนหน้า</button>
+        <span class="nav-pos" id="navPos">1 / 44</span>
+        <button id="nextBtn" class="nav-btn" title="ตัวถัดไป (ลูกศรขวา)">ถัดไป ▶</button>
+      </div>
+      <div class="big" id="ttl"></div>
+      <p id="desc"></p>
+      <div class="acts">
+        <button id="demo">ดูวิธีเขียน</button>
+        <button id="say">ฟังเสียง</button>
+        <button id="clr" class="alt">ล้างกระดาน</button>
+        <button id="gh" class="alt">ซ่อนตัวจาง</button>
+        <button id="recToggle" class="rec-btn">
+          <span class="rec-dot"></span>
+          <span id="recLabel">บันทึกเส้นทางเอง</span>
+        </button>
+      </div>
+
+      <div class="rec-box" id="recBox" hidden>
+        <p><b>โหมดบันทึกเส้นทาง:</b> ลากเส้นทับตัวจางตามลำดับได้เลย ทันทีที่ปล่อยเมาส์ระบบจะ <b>ดัดเส้นเบี้ยวให้ตรงเป๊ะและโค้งมนสวยอัตโนมัติ</b></p>
+        <div class="acts">
+          <label class="control-pill" title="ตัวช่วยลดมือสั่นเวลาใช้เมาส์บันทึกเส้นทาง">
+            <span>กันสั่น:</span>
+            <select id="stabSel">
+              <option value="0">ปิด</option>
+              <option value="14">ปานกลาง</option>
+              <option value="24" selected>สูง (นิ่งกริบ)</option>
+            </select>
+          </label>
+          <button id="recUndo" class="alt">ย้อนกลับ 1 เส้น</button>
+          <button id="recClear" class="alt">ล้างเส้นที่บันทึก</button>
+          <button id="recTest" class="alt">ทดสอบเส้นทาง</button>
+          <button id="recCopy" class="alt">คัดลอกโค้ด</button>
+          <button id="recExport">ส่งออกไฟล์สำหรับผู้เรียน (.html)</button>
+        </div>
+        <textarea id="recOut" readonly placeholder="เมื่อลากเส้นแล้ว โค้ดพิกัดจะปรากฏที่นี่..."></textarea>
+      </div>
+
+      <div class="legend" style="margin: 14px 0 0;">
+        <span><i class="dot" style="background:#10b981;"></i>จุดเริ่มเขียน</span>
+        <span><i class="dot" style="background:#ef4444;border-radius:2px;"></i>ลูกศร = จุดจบ</span>
+        <span><i class="mint-pill-icon"></i>มีเส้นทางมาตรฐานแล้ว</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- แท็บพยัญชนะ 44 ตัว -->
+  <section id="pc">
+    <div class="legend">
+      <span><i class="dot" style="background:var(--mid);"></i>อักษรกลาง (9 ตัว)</span>
+      <span><i class="dot" style="background:var(--high);"></i>อักษรสูง (11 ตัว)</span>
+      <span><i class="dot" style="background:var(--low);"></i>อักษรต่ำ (24 ตัว)</span>
+    </div>
+    <div class="grid" id="gc"></div>
+    <p class="note" style="margin-top:14px;">หมายเหตุ: <b>ฃ</b> (ฃ ฃวด) และ <b>ฅ</b> (ฅ ฅน) เลิกใช้แล้วในปัจจุบัน</p>
+  </section>
+
+  <!-- แท็บสระ 28 รูป -->
+  <section id="pv" hidden>
+    <div class="context-bar">
+      <div class="context-left">
+        <div class="tabs" id="vowelModeTabs" style="margin:0;">
+          <button type="button" data-vm="solo" aria-selected="true" style="padding:6px 12px;font-size:14px;">เขียนเฉพาะรูปสระ</button>
+          <button type="button" data-vm="combo" aria-selected="false" style="padding:6px 12px;font-size:14px;">ประสมกับพยัญชนะ</button>
+        </div>
+        <div id="vowelComboCtrl" class="context-left" hidden>
+          <label for="vowelConsonantSel"><b>พยัญชนะต้น:</b></label>
+          <div style="display:inline-flex;align-items:center;gap:6px;">
+            <button type="button" id="vowelPrevConsBtn" class="nav-btn" title="พยัญชนะก่อนหน้า" style="padding:6px 10px;">◀</button>
+            <select id="vowelConsonantSel" class="context-select"></select>
+            <button type="button" id="vowelNextConsBtn" class="nav-btn" title="พยัญชนะถัดไป" style="padding:6px 10px;">▶</button>
+          </div>
+          <span id="vowelTriBadge" class="tri-badge m">อักษรกลาง</span>
+        </div>
+      </div>
+      <span class="note" id="vowelModeHint" style="margin:0;">ฝึกเขียนเฉพาะรูปร่างของสระทั้ง 28 รูป</span>
+    </div>
+    <div id="vowelOrthAlert" class="orth-alert" hidden></div>
+    <div class="grid v" id="gv"></div>
+    <p class="note" style="margin-top:14px;">หมายเหตุ: <b>ฃ</b> (ฃ ฃวด) และ <b>ฅ</b> (ฅ ฅน) เลิกใช้แล้วในปัจจุบัน</p>
+  </section>
+
+  <!-- แท็บวรรณยุกต์ 4 รูป -->
+  <section id="pt" hidden>
+    <div class="context-bar">
+      <div class="context-left">
+        <div class="tabs" id="toneModeTabs" style="margin:0;">
+          <button type="button" data-tm="solo" aria-selected="true" style="padding:6px 12px;font-size:14px;">เขียนเฉพาะรูปวรรณยุกต์</button>
+          <button type="button" data-tm="combo" aria-selected="false" style="padding:6px 12px;font-size:14px;">ประสมกับพยัญชนะ</button>
+        </div>
+        <div id="toneComboCtrl" class="context-left" hidden>
+          <label for="toneConsonantSel"><b>พยัญชนะต้น:</b></label>
+          <div style="display:inline-flex;align-items:center;gap:6px;">
+            <button type="button" id="tonePrevConsBtn" class="nav-btn" title="พยัญชนะก่อนหน้า" style="padding:6px 10px;">◀</button>
+            <select id="toneConsonantSel" class="context-select"></select>
+            <button type="button" id="toneNextConsBtn" class="nav-btn" title="พยัญชนะถัดไป" style="padding:6px 10px;">▶</button>
+          </div>
+          <span id="toneTriBadge" class="tri-badge m">อักษรกลาง</span>
+        </div>
+      </div>
+      <span class="note" id="toneModeHint" style="margin:0;">ฝึกเขียนเฉพาะรูปร่างของเครื่องหมายวรรณยุกต์ทั้ง 4 รูป</span>
+    </div>
+
+    <div class="tri-rule-box">
+      <p id="triRuleDesc"></p>
+      <div class="grid v" id="gt"></div>
+    </div>
+
+    <div id="toneTableWrap" hidden>
+      <p class="note" style="margin-top: 16px;"><b>ตารางผันเสียงวรรณยุกต์ของ "<span id="toneTableChar">ก</span>"</b> (คลิกที่คำในตารางเพื่อฝึกเขียนและฟังเสียงได้ทันที):</p>
+      <table id="tt"></table>
+    </div>
+    <p class="note" style="margin-top:14px;">หมายเหตุ: <b>ฃ</b> (ฃ ฃวด) และ <b>ฅ</b> (ฅ ฅน) เลิกใช้แล้วในปัจจุบัน</p>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+
+/* 1. ข้อมูลพยัญชนะไทยครบ 44 ตัว */
+const CONSONANTS = [
+  { text: "ก", name: "ก ไก่", speak: ["กอ", "กอ ไก่"], cls: "m" },
+  { text: "ข", name: "ข ไข่", speak: ["ขอ", "ขอ ไข่"], cls: "h" },
+  { text: "ฃ", name: "ฃ ฃวด", speak: ["ขอ", "ขอ ขวด"], cls: "h", note: "เลิกใช้แล้วในปัจจุบัน" },
+  { text: "ค", name: "ค ควาย", speak: ["คอ", "คอ ควาย"], cls: "l" },
+  { text: "ฅ", name: "ฅ ฅน", speak: ["คอ", "คอ คน"], cls: "l", note: "เลิกใช้แล้วในปัจจุบัน" },
+  { text: "ฆ", name: "ฆ ระฆัง", speak: ["คอ", "คอ ระฆัง"], cls: "l", pali: true },
+  { text: "ง", name: "ง งู", speak: ["งอ", "งอ งู"], cls: "l" },
+  { text: "จ", name: "จ จาน", speak: ["จอ", "จอ จาน"], cls: "m" },
+  { text: "ฉ", name: "ฉ ฉิ่ง", speak: ["ฉอ", "ฉอ ฉิ่ง"], cls: "h" },
+  { text: "ช", name: "ช ช้าง", speak: ["ชอ", "ชอ ช้าง"], cls: "l" },
+  { text: "ซ", name: "ซ โซ่", speak: ["ซอ", "ซอ โซ่"], cls: "l" },
+  { text: "ฌ", name: "ฌ เฌอ", speak: ["ชอ", "ชอ เฌอ"], cls: "l", pali: true },
+  { text: "ญ", name: "ญ หญิง", speak: ["ยอ", "ยอ หญิง"], cls: "l", pali: true },
+  { text: "ฎ", name: "ฎ ชฎา", speak: ["ดอ", "ดอ ชฎา"], cls: "m", pali: true },
+  { text: "ฏ", name: "ฏ ปฏัก", speak: ["ตอ", "ตอ ปฏัก"], cls: "m", pali: true },
+  { text: "ฐ", name: "ฐ ฐาน", speak: ["ถอ", "ถอ ฐาน"], cls: "h", pali: true },
+  { text: "ฑ", name: "ฑ มณโฑ", speak: ["ทอ", "ทอ มณโฑ"], cls: "l", pali: true },
+  { text: "ฒ", name: "ฒ ผู้เฒ่า", speak: ["ทอ", "ทอ ผู้เฒ่า"], cls: "l", pali: true },
+  { text: "ณ", name: "ณ เณร", speak: ["นอ", "นอ เณร"], cls: "l", pali: true },
+  { text: "ด", name: "ด เด็ก", speak: ["ดอ", "ดอ เด็ก"], cls: "m" },
+  { text: "ต", name: "ต เต่า", speak: ["ตอ", "ตอ เต่า"], cls: "m" },
+  { text: "ถ", name: "ถ ถุง", speak: ["ถอ", "ถอ ถุง"], cls: "h" },
+  { text: "ท", name: "ท ทหาร", speak: ["ทอ", "ทอ ทหาร"], cls: "l" },
+  { text: "ธ", name: "ธ ธง", speak: ["ทอ", "ทอ ธง"], cls: "l", pali: true },
+  { text: "น", name: "น หนู", speak: ["นอ", "นอ หนู"], cls: "l" },
+  { text: "บ", name: "บ ใบไม้", speak: ["บอ", "บอ ใบไม้"], cls: "m" },
+  { text: "ป", name: "ป ปลา", speak: ["ปอ", "ปอ ปลา"], cls: "m" },
+  { text: "ผ", name: "ผ ผึ้ง", speak: ["ผอ", "ผอ ผึ้ง"], cls: "h" },
+  { text: "ฝ", name: "ฝ ฝา", speak: ["ฝอ", "ฝอ ฝา"], cls: "h" },
+  { text: "พ", name: "พ พาน", speak: ["พอ", "พอ พาน"], cls: "l" },
+  { text: "ฟ", name: "ฟ ฟัน", speak: ["ฟอ", "ฟอ ฟัน"], cls: "l" },
+  { text: "ภ", name: "ภ สำเภา", speak: ["พอ", "พอ สำเภา"], cls: "l", pali: true },
+  { text: "ม", name: "ม ม้า", speak: ["มอ", "มอ ม้า"], cls: "l" },
+  { text: "ย", name: "ย ยักษ์", speak: ["ยอ", "ยอ ยักษ์"], cls: "l" },
+  { text: "ร", name: "ร เรือ", speak: ["รอ", "รอ เรือ"], cls: "l" },
+  { text: "ล", name: "ล ลิง", speak: ["ลอ", "ลอ ลิง"], cls: "l" },
+  { text: "ว", name: "ว แหวน", speak: ["วอ", "วอ แหวน"], cls: "l" },
+  { text: "ศ", name: "ศ ศาลา", speak: ["สอ", "สอ ศาลา"], cls: "h", pali: true },
+  { text: "ษ", name: "ษ ฤๅษี", speak: ["สอ", "สอ ฤๅษี"], cls: "h", pali: true },
+  { text: "ส", name: "ส เสือ", speak: ["สอ", "สอ เสือ"], cls: "h" },
+  { text: "ห", name: "ห หีบ", speak: ["หอ", "หอ หีบ"], cls: "h" },
+  { text: "ฬ", name: "ฬ จุฬา", speak: ["ลอ", "ลอ จุฬา"], cls: "l", pali: true },
+  { text: "อ", name: "อ อ่าง", speak: ["ออ", "ออ อ่าง"], cls: "m" },
+  { text: "ฮ", name: "ฮ นกฮูก", speak: ["ฮอ", "ฮอ นกฮูก"], cls: "l" }
+];
+
+/* 2. ข้อมูลสระครบ 28 รูป */
+const VOWELS = [
+  { form: "–ะ", solo: "–ะ", make: c => `${c}ะ`, name: "สระอะ", type: "เสียงสั้น", speak: c => ["สระ อะ", `${c}ะ`] },
+  { form: "–า", solo: "–า", make: c => `${c}า`, name: "สระอา", type: "เสียงยาว", speak: c => ["สระ อา", `${c}า`] },
+  { form: "–ิ", solo: "–ิ", make: c => `${c}ิ`, name: "สระอิ", type: "เสียงสั้น", speak: c => ["สระ อิ", `${c}ิ`] },
+  { form: "–ี", solo: "–ี", make: c => `${c}ี`, name: "สระอี", type: "เสียงยาว", speak: c => ["สระ อี", `${c}ี`] },
+  { form: "–ึ", solo: "–ึ", make: c => `${c}ึ`, name: "สระอึ", type: "เสียงสั้น", speak: c => ["สระ อึ", `${c}ึ`] },
+  { form: "–ื", solo: "–ือ", make: c => `${c}ือ`, name: "สระอือ", type: "เสียงยาว", speak: c => ["สระ อือ", `${c}ือ`] },
+  { form: "–ุ", solo: "–ุ", make: c => `${c}ุ`, name: "สระอุ", type: "เสียงสั้น", speak: c => ["สระ อุ", `${c}ุ`] },
+  { form: "–ู", solo: "–ู", make: c => `${c}ู`, name: "สระอู", type: "เสียงยาว", speak: c => ["สระ อู", `${c}ู`] },
+  { form: "เ–ะ", solo: "เ–ะ", make: c => `เ${c}ะ`, name: "สระเอะ", type: "เสียงสั้น", speak: c => ["สระ เอะ", `เ${c}ะ`] },
+  { form: "เ–", solo: "เ–", make: c => `เ${c}`, name: "สระเอ", type: "เสียงยาว", speak: c => ["สระ เอ", `เ${c}`] },
+  { form: "แ–ะ", solo: "แ–ะ", make: c => `แ${c}ะ`, name: "สระแอะ", type: "เสียงสั้น", speak: c => ["สระ แอะ", `แ${c}ะ`] },
+  { form: "แ–", solo: "แ–", make: c => `แ${c}`, name: "สระแอ", type: "เสียงยาว", speak: c => ["สระ แอ", `แ${c}`] },
+  { form: "โ–ะ", solo: "โ–ะ", make: c => `โ${c}ะ`, name: "สระโอะ", type: "เสียงสั้น", speak: c => ["สระ โอะ", `โ${c}ะ`] },
+  { form: "โ–", solo: "โ–", make: c => `โ${c}`, name: "สระโอ", type: "เสียงยาว", speak: c => ["สระ โอ", `โ${c}`] },
+  { form: "เ–าะ", solo: "เ–าะ", make: c => `เ${c}าะ`, name: "สระเอาะ", type: "เสียงสั้น", speak: c => ["สระ เอาะ", `เ${c}าะ`] },
+  { form: "–อ", solo: "–อ", make: c => `${c}อ`, name: "สระออ", type: "เสียงยาว", speak: c => ["สระ ออ", `${c}อ`] },
+  { form: "เ–อะ", solo: "เ–อะ", make: c => `เ${c}อะ`, name: "สระเออะ", type: "เสียงสั้น", speak: c => ["สระ เออะ", `เ${c}อะ`] },
+  { form: "เ–อ", solo: "เ–อ", make: c => `เ${c}อ`, name: "สระเออ", type: "เสียงยาว", speak: c => ["สระ เออ", `เ${c}อ`] },
+  { form: "เ–ียะ", solo: "เ–ียะ", make: c => `เ${c}ียะ`, name: "สระเอียะ", type: "เสียงสั้น", speak: c => ["สระ เอียะ", `เ${c}ียะ`] },
+  { form: "เ–ีย", solo: "เ–ีย", make: c => `เ${c}ีย`, name: "สระเอีย", type: "เสียงยาว", speak: c => ["สระ เอีย", `เ${c}ีย`] },
+  { form: "เ–ือะ", solo: "เ–ือะ", make: c => `เ${c}ือะ`, name: "สระเอือะ", type: "เสียงสั้น", speak: c => ["สระ เอือะ", `เ${c}ือะ`] },
+  { form: "เ–ือ", solo: "เ–ือ", make: c => `เ${c}ือ`, name: "สระเอือ", type: "เสียงยาว", speak: c => ["สระ เอือ", `เ${c}ือ`] },
+  { form: "–ัวะ", solo: "–ัวะ", make: c => `${c}ัวะ`, name: "สระอัวะ", type: "เสียงสั้น", speak: c => ["สระ อัวะ", `${c}ัวะ`] },
+  { form: "–ัว", solo: "–ัว", make: c => `${c}ัว`, name: "สระอัว", type: "เสียงยาว", speak: c => ["สระ อัว", `${c}ัว`] },
+  { form: "–ำ", solo: "–ำ", make: c => `${c}ำ`, name: "สระอำ", type: "เสียงสั้น", speak: c => ["สระ อำ", `${c}ำ`] },
+  { form: "ไ–", solo: "ไ–", make: c => `ไ${c}`, name: "สระไอไม้มลาย", type: "เสียงสั้น", speak: c => ["สระ ไอ", `ไ${c}`] },
+  { form: "ใ–", solo: "ใ–", make: c => `ใ${c}`, name: "สระใอไม้ม้วน", type: "เสียงสั้น", speak: c => ["สระ ใอ", `ใ${c}`] },
+  { form: "เ–า", solo: "เ–า", make: c => `เ${c}า`, name: "สระเอา", type: "เสียงสั้น", speak: c => ["สระ เอา", `เ${c}า`] }
+];
+
+/* 3. ข้อมูลวรรณยุกต์ 4 รูป */
+const TONES = [
+  { mark: "่", name: "ไม้เอก", key: "ek" },
+  { mark: "้", name: "ไม้โท", key: "tho" },
+  { mark: "๊", name: "ไม้ตรี", key: "tri" },
+  { mark: "๋", name: "ไม้จัตวา", key: "jattawa" }
+];
+const CLASS_NAMES = { m: "อักษรกลาง", h: "อักษรสูง", l: "อักษรต่ำ" };
+
+/* 4. ข้อมูลเส้นทางมาตรฐาน (STROKE_GUIDES) พิกัดสัมพัทธ์ [0..1] ภายในกรอบตัวอักษร */
+const STROKE_GUIDES = {
+  'ก': [[[0.15,0.98],[0.15,0.44],[0.27,0.34],[0.11,0.22],[0.25,0.08],[0.52,0.02],[0.79,0.12],[0.86,0.33],[0.86,0.98]]],
+  'ข': [[[0.23,0.15],[0.33,0.22],[0.26,0.34],[0.11,0.30],[0.11,0.13],[0.29,0.03],[0.49,0.14],[0.45,0.35],[0.31,0.56],[0.31,0.95],[0.68,0.95],[0.86,0.87],[0.86,0.05]]],
+  'ค': [[[0.44,0.41],[0.37,0.32],[0.48,0.23],[0.60,0.33],[0.49,0.45],[0.38,0.41],[0.27,0.94],[0.15,0.65],[0.12,0.32],[0.28,0.08],[0.54,0.03],[0.79,0.13],[0.86,0.36],[0.86,0.98]]],
+  'ง': [[[0.64,0.25],[0.50,0.31],[0.40,0.19],[0.52,0.04],[0.70,0.15],[0.67,0.34],[0.67,0.95],[0.16,0.46]]],
+  'จ': [[[0.41,0.48],[0.27,0.51],[0.23,0.36],[0.38,0.26],[0.51,0.39],[0.60,0.92],[0.76,0.96],[0.85,0.80],[0.85,0.28],[0.66,0.06],[0.36,0.04],[0.15,0.22]]],
+  'ฉ': [[[0.32,0.48],[0.19,0.47],[0.17,0.32],[0.32,0.25],[0.42,0.38],[0.33,0.53],[0.33,0.95],[0.64,0.66],[0.81,0.72],[0.82,0.90],[0.66,0.95],[0.58,0.80],[0.72,0.64],[0.85,0.48],[0.84,0.24],[0.64,0.06],[0.34,0.04],[0.15,0.22]]],
+  'ช': [[[0.23,0.16],[0.34,0.23],[0.26,0.35],[0.12,0.29],[0.13,0.12],[0.31,0.04],[0.48,0.16],[0.41,0.38],[0.28,0.58],[0.28,0.94],[0.66,0.94],[0.84,0.86],[0.84,0.24],[0.95,0.04]]],
+  'ซ': [[[0.22,0.18],[0.33,0.25],[0.25,0.36],[0.11,0.30],[0.12,0.14],[0.26,0.06],[0.38,0.14],[0.48,0.06],[0.58,0.16],[0.45,0.38],[0.29,0.58],[0.29,0.94],[0.66,0.94],[0.84,0.86],[0.84,0.24],[0.95,0.04]]],
+  'ด': [[[0.55,0.56],[0.43,0.63],[0.41,0.48],[0.55,0.42],[0.64,0.55],[0.48,0.92],[0.25,0.94],[0.13,0.68],[0.15,0.32],[0.33,0.08],[0.60,0.04],[0.83,0.16],[0.86,0.42],[0.86,0.98]]],
+  'ต': [[[0.55,0.56],[0.43,0.63],[0.41,0.48],[0.55,0.42],[0.64,0.55],[0.48,0.92],[0.25,0.94],[0.13,0.68],[0.15,0.32],[0.31,0.08],[0.48,0.16],[0.65,0.06],[0.83,0.18],[0.86,0.42],[0.86,0.98]]],
+  'ถ': [[[0.45,0.68],[0.33,0.74],[0.31,0.58],[0.45,0.52],[0.54,0.65],[0.38,0.95],[0.18,0.94],[0.14,0.46],[0.27,0.35],[0.12,0.22],[0.26,0.08],[0.54,0.03],[0.80,0.13],[0.86,0.35],[0.86,0.98]]],
+  'ท': [[[0.23,0.18],[0.34,0.25],[0.26,0.37],[0.12,0.31],[0.13,0.13],[0.29,0.05],[0.42,0.18],[0.38,0.45],[0.34,0.96],[0.48,0.48],[0.66,0.26],[0.83,0.32],[0.86,0.52],[0.86,0.98]]],
+  'น': [[[0.23,0.18],[0.34,0.25],[0.26,0.37],[0.12,0.31],[0.13,0.13],[0.29,0.05],[0.40,0.20],[0.36,0.92],[0.65,0.78],[0.83,0.82],[0.85,0.95],[0.71,0.96],[0.66,0.82],[0.83,0.66],[0.85,0.05]]],
+  'บ': [[[0.23,0.16],[0.34,0.23],[0.26,0.35],[0.12,0.29],[0.13,0.12],[0.29,0.04],[0.38,0.20],[0.34,0.94],[0.76,0.94],[0.86,0.84],[0.86,0.05]]],
+  'ป': [[[0.23,0.36],[0.34,0.42],[0.26,0.52],[0.12,0.47],[0.13,0.32],[0.29,0.25],[0.38,0.40],[0.34,0.95],[0.76,0.95],[0.86,0.86],[0.86,0.02]]],
+  'ผ': [[[0.25,0.16],[0.36,0.23],[0.28,0.35],[0.14,0.29],[0.15,0.12],[0.31,0.04],[0.40,0.20],[0.36,0.95],[0.54,0.58],[0.72,0.95],[0.86,0.88],[0.86,0.05]]],
+  'ฝ': [[[0.25,0.36],[0.36,0.42],[0.28,0.52],[0.14,0.47],[0.15,0.32],[0.31,0.25],[0.40,0.40],[0.36,0.95],[0.54,0.62],[0.72,0.95],[0.86,0.88],[0.86,0.02]]],
+  'พ': [[[0.22,0.16],[0.33,0.23],[0.25,0.35],[0.11,0.29],[0.12,0.12],[0.28,0.04],[0.36,0.20],[0.32,0.95],[0.52,0.34],[0.70,0.95],[0.86,0.88],[0.86,0.05]]],
+  'ฟ': [[[0.22,0.36],[0.33,0.42],[0.25,0.52],[0.11,0.47],[0.12,0.32],[0.28,0.25],[0.36,0.40],[0.32,0.95],[0.52,0.42],[0.70,0.95],[0.86,0.88],[0.86,0.02]]],
+  'ภ': [[[0.45,0.68],[0.33,0.74],[0.31,0.58],[0.45,0.52],[0.54,0.65],[0.38,0.95],[0.18,0.94],[0.14,0.36],[0.28,0.08],[0.54,0.03],[0.80,0.13],[0.86,0.35],[0.86,0.98]]],
+  'ม': [[[0.23,0.16],[0.34,0.23],[0.26,0.35],[0.12,0.29],[0.13,0.12],[0.29,0.04],[0.38,0.20],[0.34,0.84],[0.20,0.95],[0.14,0.82],[0.28,0.74],[0.78,0.94],[0.86,0.86],[0.86,0.05]]],
+  'ย': [[[0.24,0.16],[0.35,0.23],[0.27,0.35],[0.13,0.29],[0.14,0.12],[0.30,0.04],[0.38,0.20],[0.34,0.48],[0.52,0.52],[0.34,0.64],[0.34,0.94],[0.76,0.94],[0.86,0.86],[0.86,0.05]]],
+  'ร': [[[0.42,0.86],[0.30,0.93],[0.26,0.78],[0.40,0.72],[0.50,0.84],[0.46,0.52],[0.36,0.26],[0.54,0.06],[0.76,0.06],[0.84,0.16]]],
+  'ล': [[[0.44,0.84],[0.32,0.91],[0.28,0.76],[0.42,0.70],[0.52,0.82],[0.48,0.46],[0.30,0.38],[0.15,0.56],[0.14,0.84],[0.14,0.32],[0.32,0.08],[0.58,0.04],[0.82,0.16],[0.86,0.42],[0.86,0.98]]],
+  'ว': [[[0.62,0.82],[0.50,0.90],[0.46,0.75],[0.60,0.68],[0.72,0.80],[0.78,0.52],[0.74,0.22],[0.54,0.05],[0.28,0.08],[0.16,0.24]]],
+  'ส': [[[0.44,0.84],[0.32,0.91],[0.28,0.76],[0.42,0.70],[0.52,0.82],[0.48,0.46],[0.30,0.38],[0.15,0.56],[0.14,0.84],[0.14,0.32],[0.32,0.10],[0.58,0.06],[0.82,0.18],[0.86,0.42],[0.86,0.98]],[[0.74,0.14],[0.94,0.02]]],
+  'ห': [[[0.23,0.16],[0.34,0.23],[0.26,0.35],[0.12,0.29],[0.13,0.12],[0.29,0.04],[0.38,0.20],[0.34,0.95],[0.48,0.48],[0.66,0.24],[0.83,0.32],[0.86,0.52],[0.86,0.98]]],
+  'อ': [[[0.52,0.54],[0.40,0.61],[0.38,0.46],[0.52,0.40],[0.62,0.52],[0.56,0.88],[0.32,0.94],[0.15,0.74],[0.14,0.38],[0.30,0.10],[0.58,0.04],[0.82,0.16],[0.86,0.42],[0.86,0.94],[0.62,0.94]]],
+  'ฮ': [[[0.52,0.60],[0.40,0.66],[0.38,0.52],[0.52,0.46],[0.62,0.58],[0.56,0.90],[0.32,0.95],[0.15,0.76],[0.14,0.44],[0.30,0.20],[0.58,0.14],[0.82,0.24],[0.86,0.48],[0.86,0.20],[0.95,0.04]]]
+};
+const STUDENT_MODE = false;
+
+/* โหลดเส้นทางที่บันทึกไว้ในเบราว์เซอร์ (หากมี) */
+const STORAGE_KEY = "thai_writing_stroke_guides_v1";
+try {
+  const savedGuides = localStorage.getItem(STORAGE_KEY);
+  if (savedGuides && !STUDENT_MODE) {
+    Object.assign(STROKE_GUIDES, JSON.parse(savedGuides));
+  }
+} catch (_) {}
+
+/* สถานะแอปพลิเคชัน */
+let activeConsonant = CONSONANTS[0];
+let cur = { text: "ก", say: ["กอ", "กอ ไก่"] };
+let ghostOn = true;
+let curFont = "Sarabun";
+let brushSize = 10;
+let stabRadius = 24;
+let draw = false;
+let last = null;
+let smoothPt = null;
+let strokePts = [];
+let recMode = false;
+let recStrokes = [];
+let curRecStroke = [];
+let dtok = 0;
+let PT = 0;
+let PL = null;
+const dm = $("dm"), dx = dm.getContext("2d"), pen = $("pen");
+
+/* ปุ่มตั้งค่าฟอนต์ ขนาดเส้น ระดับกันสั่น และสลับธีม */
+$("fontSel").onchange = e => {
+  curFont = e.target.value;
+  document.documentElement.style.setProperty("--app-font", `"${curFont}"`);
+  updateGhostFontSize();
+  PL = null;
+  stopDemo();
+  clearCv();
+  recStrokes = [];
+  plan().then(r => { if (r) { PL = r; marks(false); } });
+};
+
+$("brushSel").onchange = e => {
+  brushSize = parseInt(e.target.value, 10) || 10;
+};
+
+$("stabSel").onchange = e => {
+  stabRadius = parseInt(e.target.value, 10) || 0;
+};
+
+let isDark = false;
+$("themeBtn").onclick = () => {
+  isDark = !isDark;
+  document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+  $("themeBtn").textContent = isDark ? "โหมดสว่าง" : "โหมดมืด";
+  PL = null;
+  plan().then(r => { if (r) { PL = r; marks(false); } });
+};
+
+function refreshBadges() {
+  document.querySelectorAll(".grid button").forEach(btn => {
+    const ch = btn.dataset.ch;
+    if (ch) btn.classList.toggle("has-guide", !!STROKE_GUIDES[ch]);
+  });
+}
+
+function updateGhostFontSize() {
+  const txt = cur.text;
+  const isTopMark = /^[\u0E31\u0E34-\u0E37\u0E47-\u0E4E]+$/.test(txt);
+  const isWideMark = txt === "้";
+  const isTriMark = txt === "๊";
+  const isBotMark = /^[\u0E38-\u0E3A]+$/.test(txt);
+  $("ghost").classList.toggle("center-mark", isTopMark);
+  $("ghost").classList.toggle("wide-mark", isWideMark);
+  $("ghost").classList.toggle("tri-mark", isTriMark);
+  $("ghost").classList.toggle("center-bottom", isBotMark);
+
+  const st = $("stage");
+  const W = st.clientWidth || 330;
+  let fs = 228;
+  if (isTopMark || isBotMark) {
+    fs = 235;
+  } else {
+    const baseChars = [...txt].filter(ch => !/[\u0E31\u0E34-\u0E3A\u0E47-\u0E4E]/.test(ch));
+    const hasTop = /[\u0E31\u0E34-\u0E37\u0E47-\u0E4E]/.test(txt);
+    const hasBot = /[\u0E38-\u0E3A]/.test(txt);
+    const hasTall = /[เแโใไ]/.test(txt);
+    const n = baseChars.length;
+    const baseSizes = [228, 224, 168, 128, 104, 88];
+    fs = baseSizes[Math.min(n, 5)];
+    if (hasTop && hasTall) fs = Math.min(fs, n >= 2 ? 132 : 172);
+    else if (hasTop || hasBot) fs = Math.min(fs, n >= 2 ? 148 : 196);
+    else if (hasTall && n >= 2) fs = Math.min(fs, 152);
+  }
+  $("ghost").style.fontSize = Math.round(fs * (W / 330)) + "px";
+}
+
+function renderGhostContent(txt) {
+  const ghostEl = $("ghost");
+  if (txt === "–ำ") {
+    ghostEl.innerHTML =
+      `<span class="ghost-solo-wrap"><span class="ghost-dash">–</span><span class="ghost-vowel-top is-nikhahit">\u00A0\u0E4D</span></span><span class="ghost-post">า</span>`;
+    return;
+  }
+  const soloMatch = txt.match(/^(.*)–([\u0E31\u0E34-\u0E3A])(.*)$/);
+  if (soloMatch) {
+    const [, pre, mark, post] = soloMatch;
+    const isBot = /[\u0E38-\u0E3A]/.test(mark);
+    const isU = mark === "\u0E38";
+    const isHan = mark === "\u0E31";
+    const cls = isBot
+      ? `ghost-vowel-bot${isU ? " is-u" : ""}`
+      : `ghost-vowel-top${isHan ? " is-han" : ""}`;
+    const postHtml = post ? `<span class="ghost-post">${post}</span>` : "";
+    ghostEl.innerHTML =
+      `${pre}<span class="ghost-solo-wrap"><span class="ghost-dash">–</span><span class="${cls}">\u00A0${mark}</span></span>${postHtml}`;
+  } else {
+    ghostEl.textContent = txt;
+  }
+}
+
+function setPad(text, title, desc, say, titleHtml = null) {
+  cur = { text, say };
+  renderGhostContent(text);
+  updateGhostFontSize();
+  if (titleHtml) $("ttl").innerHTML = titleHtml;
+  else $("ttl").textContent = title;
+  $("desc").textContent = desc;
+  PL = null;
+  stopDemo();
+  clearCv();
+  recStrokes = [];
+  plan().then(r => {
+    if (r) {
+      PL = r;
+      marks(false);
+      if (recMode) drawRecOverlay();
+    }
+  });
+}
+
+function mark(grid, btn) {
+  grid.querySelectorAll("button").forEach(b => b.classList.toggle("sel", b === btn));
+}
+
+/* 5. แท็บพยัญชนะ 44 ตัว + ระบบนำทางก่อนหน้า/ถัดไป */
+let activeTab = "c";
+let curConsonantIdx = 0;
+
+function updateNavBar() {
+  const activeGrid = activeTab === "c" ? $("gc") : activeTab === "v" ? $("gv") : $("gt");
+  const btns = [...activeGrid.querySelectorAll("button:not(.disabled-tone)")];
+  const idx = btns.findIndex(b => b.classList.contains("sel"));
+  $("navPos").textContent = idx >= 0 ? `${idx + 1} / ${btns.length}` : `- / ${btns.length}`;
+  $("prevBtn").disabled = idx <= 0;
+  $("nextBtn").disabled = idx < 0 || idx >= btns.length - 1;
+}
+
+$("prevBtn").onclick = () => {
+  const activeGrid = activeTab === "c" ? $("gc") : activeTab === "v" ? $("gv") : $("gt");
+  const btns = [...activeGrid.querySelectorAll("button:not(.disabled-tone)")];
+  const idx = btns.findIndex(b => b.classList.contains("sel"));
+  if (idx > 0) btns[idx - 1].click();
+};
+
+$("nextBtn").onclick = () => {
+  const activeGrid = activeTab === "c" ? $("gc") : activeTab === "v" ? $("gv") : $("gt");
+  const btns = [...activeGrid.querySelectorAll("button:not(.disabled-tone)")];
+  const idx = btns.findIndex(b => b.classList.contains("sel"));
+  if (idx >= 0 && idx < btns.length - 1) btns[idx + 1].click();
+};
+
+document.addEventListener("keydown", e => {
+  if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
+  if (e.key === "ArrowLeft") $("prevBtn").click();
+  if (e.key === "ArrowRight") $("nextBtn").click();
+});
+
+$("gc").innerHTML = CONSONANTS.map((item, i) =>
+  `<button class="${item.cls}" data-i="${i}" data-ch="${item.text}"><b>${item.text}</b><small>${item.name}</small></button>`
+).join("");
+
+$("gc").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  curConsonantIdx = +b.dataset.i;
+  const item = CONSONANTS[curConsonantIdx];
+  const extra = [];
+  if (item.pali) extra.push("พยัญชนะบาลี-สันสกฤต");
+  if (item.note) extra.push(item.note);
+  const desc = `${CLASS_NAMES[item.cls]}${extra.length ? " · " + extra.join(" · ") : ""}`;
+  setPad(item.text, item.name, desc, item.speak);
+  mark($("gc"), b);
+  updateNavBar();
+};
+
+/* 6. แท็บสระ 28 รูป */
+const usableConsonants = CONSONANTS.filter(c => !c.note);
+const optionsHtml = usableConsonants.map(c =>
+  `<option value="${c.text}">${c.name} (${CLASS_NAMES[c.cls]})</option>`
+).join("");
+$("vowelConsonantSel").innerHTML = optionsHtml;
+$("toneConsonantSel").innerHTML = optionsHtml;
+
+function getOrthographyWarning(c, vowelForm) {
+  if ((c === "ร" || c === "ล") && ["–ึ", "–ื", "–า"].includes(vowelForm)) {
+    return null;
+  }
+  if (["ฆ", "ฌ", "ญ", "ฎ", "ฏ", "ฐ", "ฑ", "ฒ", "ณ", "ธ", "ภ", "ศ", "ษ", "ฬ"].includes(c) && ["–ัวะ", "เ–ือะ", "เ–ียะ"].includes(vowelForm)) {
+    return `หมายเหตุอักขรวิธี: "${c}" เป็นพยัญชนะกลุ่มบาลี-สันสกฤต ไม่ค่อยพบประสมกับสระเสียงสั้น "${vowelForm}" ในคำไทยทั่วไป`;
+  }
+  return null;
+}
+
+function renderVowelsGrid() {
+  const isSolo = vowelMode === "solo";
+  $("vowelComboCtrl").hidden = isSolo;
+  $("vowelModeHint").textContent = isSolo
+    ? "ฝึกเขียนเฉพาะรูปร่างของสระทั้ง 28 รูป"
+    : "เลือกพยัญชนะต้นเพื่อฝึกวางตำแหน่งสระเมื่อประสมคำ";
+
+  const cObj = CONSONANTS.find(x => x.text === $("vowelConsonantSel").value) || CONSONANTS[0];
+  $("vowelTriBadge").className = `tri-badge ${cObj.cls}`;
+  $("vowelTriBadge").textContent = CLASS_NAMES[cObj.cls];
+
+  $("gv").innerHTML = VOWELS.map((v, i) => {
+    const displayWord = isSolo ? v.solo : v.make(cObj.text);
+    const warn = isSolo ? null : getOrthographyWarning(cObj.text, v.form);
+    return `<button class="${warn ? "warn-combo" : ""}" data-i="${i}" data-ch="${displayWord}"><b>${displayWord}</b><small>${v.name}</small></button>`;
+  }).join("");
+  refreshBadges();
+}
+
+let vowelMode = "solo";
+$("vowelModeTabs").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  vowelMode = b.dataset.vm;
+  $("vowelModeTabs").querySelectorAll("button").forEach(x => x.setAttribute("aria-selected", x === b));
+  $("vowelOrthAlert").hidden = true;
+  renderVowelsGrid();
+  const firstBtn = $("gv").querySelector("button");
+  if (firstBtn) firstBtn.click();
+};
+
+$("vowelConsonantSel").onchange = () => {
+  renderVowelsGrid();
+  const firstBtn = $("gv").querySelector("button");
+  if (firstBtn) firstBtn.click();
+};
+
+$("vowelPrevConsBtn").onclick = () => {
+  const sel = $("vowelConsonantSel");
+  sel.selectedIndex = (sel.selectedIndex - 1 + sel.options.length) % sel.options.length;
+  sel.onchange();
+};
+
+$("vowelNextConsBtn").onclick = () => {
+  const sel = $("vowelConsonantSel");
+  sel.selectedIndex = (sel.selectedIndex + 1) % sel.options.length;
+  sel.onchange();
+};
+
+$("gv").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  const isSolo = vowelMode === "solo";
+  const cObj = CONSONANTS.find(x => x.text === $("vowelConsonantSel").value) || CONSONANTS[0];
+  const v = VOWELS[+b.dataset.i];
+  const word = isSolo ? v.solo : v.make(cObj.text);
+  const warn = isSolo ? null : getOrthographyWarning(cObj.text, v.form);
+  $("vowelOrthAlert").hidden = !warn;
+  if (warn) $("vowelOrthAlert").textContent = warn;
+
+  const desc = isSolo
+    ? `เขียนเฉพาะรูปสระ · ${v.type}`
+    : `ประสมกับ ${cObj.name} · ${v.type}`;
+  const sayArr = isSolo ? [v.name] : v.speak(cObj.text);
+
+  setPad(word, `${v.name} (${v.form})`, desc, sayArr);
+  mark($("gv"), b);
+  updateNavBar();
+};
+
+/* 7. แท็บวรรณยุกต์ 4 รูป + ตารางผันตามหลักไตรยางศ์ */
+const TONE_RULES = {
+  m: {
+    desc: "อักษรกลาง คำเป็นพื้นเสียงสามัญ ผันได้ครบทั้ง 5 เสียง (รูปตรงกับเสียงทุกช่อง)",
+    forms: { saman: "า", ek: "่า", tho: "้า", tri: "๊า", jattawa: "๋า" },
+    allowedMarks: ["่", "้", "๊", "๋"]
+  },
+  h: {
+    desc: "อักษรสูง คำเป็นพื้นเสียงจัตวา ผันได้ 3 เสียง (เอก โท จัตวา) ไม่ใช้ไม้ตรีและไม้จัตวา",
+    forms: { saman: null, ek: "่า", tho: "้า", tri: null, jattawa: "า" },
+    allowedMarks: ["่", "้"]
+  },
+  l: {
+    desc: "อักษรต่ำ คำเป็นพื้นเสียงสามัญ ผันได้ 3 เสียง (สามัญ โท ตรี — รูปเอกออกเสียงโท รูปโทออกเสียงตรี)",
+    forms: { saman: "า", ek: null, tho: "่า", tri: "้า", jattawa: null },
+    allowedMarks: ["่", "้"]
+  }
+};
+
+function renderTonesSection() {
+  const isSolo = toneMode === "solo";
+  $("toneComboCtrl").hidden = isSolo;
+  $("toneTableWrap").hidden = isSolo;
+  $("toneModeHint").textContent = isSolo
+    ? "ฝึกเขียนเฉพาะรูปร่างของเครื่องหมายวรรณยุกต์ทั้ง 4 รูป"
+    : "เครื่องหมายวรรณยุกต์เขียนเหนือพยัญชนะต้น";
+
+  const cObj = CONSONANTS.find(x => x.text === $("toneConsonantSel").value) || CONSONANTS[0];
+  const rule = TONE_RULES[cObj.cls];
+  $("toneTriBadge").className = `tri-badge ${cObj.cls}`;
+  $("toneTriBadge").textContent = CLASS_NAMES[cObj.cls];
+  $("triRuleDesc").innerHTML = isSolo
+    ? `เครื่องหมายวรรณยุกต์มี 4 รูป ได้แก่ ไม้เอก (<span class="inline-mark">\u00A0่</span>) ไม้โท (<span class="inline-mark">\u00A0้</span>) ไม้ตรี (<span class="inline-mark">\u00A0๊</span>) และไม้จัตวา (<span class="inline-mark">\u00A0๋</span>)`
+    : rule.desc;
+  $("toneTableChar").textContent = cObj.text;
+
+  $("gt").innerHTML = TONES.map((t, i) => {
+    if (isSolo) {
+      const soloText = t.mark;
+      return `<button data-i="${i}" data-ch="${soloText}"><b class="mark-solo-top">${soloText}</b><small>${t.name}</small></button>`;
+    }
+    const allowed = rule.allowedMarks.includes(t.mark);
+    const word = `${cObj.text}${t.mark}า`;
+    return `<button class="${allowed ? "" : "disabled-tone"}" data-i="${i}" data-ch="${word}" ${allowed ? "" : "disabled"}><b>${allowed ? word : t.mark}</b><small>${t.name}${allowed ? "" : " (ไม่ผัน)"}</small></button>`;
+  }).join("");
+  refreshBadges();
+
+  const cols = [
+    ["สามัญ", rule.forms.saman],
+    ["เอก", rule.forms.ek],
+    ["โท", rule.forms.tho],
+    ["ตรี", rule.forms.tri],
+    ["จัตวา", rule.forms.jattawa]
+  ];
+  $("tt").innerHTML =
+    `<tr>${cols.map(c => `<th>เสียง${c[0]}</th>`).join("")}</tr>` +
+    `<tr>${cols.map(([toneName, suffix]) => {
+      if (!suffix) return `<td class="muted-cell">—</td>`;
+      const word = `${cObj.text}${suffix}`;
+      return `<td class="t clickable-tone" data-word="${word}" data-tone="${toneName}">${word}</td>`;
+    }).join("")}</tr>`;
+}
+
+let toneMode = "solo";
+$("toneModeTabs").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  toneMode = b.dataset.tm;
+  $("toneModeTabs").querySelectorAll("button").forEach(x => x.setAttribute("aria-selected", x === b));
+  renderTonesSection();
+  const firstBtn = $("gt").querySelector("button:not(.disabled-tone)");
+  if (firstBtn) firstBtn.click();
+};
+
+$("toneConsonantSel").onchange = () => {
+  renderTonesSection();
+  const firstBtn = $("gt").querySelector("button:not(.disabled-tone)");
+  if (firstBtn) firstBtn.click();
+};
+
+$("tonePrevConsBtn").onclick = () => {
+  const sel = $("toneConsonantSel");
+  sel.selectedIndex = (sel.selectedIndex - 1 + sel.options.length) % sel.options.length;
+  sel.onchange();
+};
+
+$("toneNextConsBtn").onclick = () => {
+  const sel = $("toneConsonantSel");
+  sel.selectedIndex = (sel.selectedIndex + 1) % sel.options.length;
+  sel.onchange();
+};
+
+$("gt").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b || b.disabled) return;
+  const isSolo = toneMode === "solo";
+  const cObj = CONSONANTS.find(x => x.text === $("toneConsonantSel").value) || CONSONANTS[0];
+  const t = TONES[+b.dataset.i];
+  if (isSolo) {
+    const soloText = t.mark;
+    setPad(soloText, `${t.name} (${soloText})`, `เขียนเฉพาะรูปวรรณยุกต์`, [t.name], `${t.name} (<span class="inline-mark">\u00A0${soloText}</span>)`);
+  } else {
+    const word = `${cObj.text}${t.mark}า`;
+    setPad(word, `${t.name} (${t.mark})`, `ประสมกับ ${cObj.name} (${CLASS_NAMES[cObj.cls]})`, [t.name, word], `${t.name} (<span class="inline-mark">\u00A0${t.mark}</span>)`);
+  }
+  mark($("gt"), b);
+  updateNavBar();
+};
+
+$("tt").onclick = e => {
+  const td = e.target.closest("td.clickable-tone");
+  if (!td) return;
+  const word = td.dataset.word;
+  const toneName = td.dataset.tone;
+  setPad(word, `คำว่า "${word}"`, `ออกเสียง${toneName}`, [word]);
+  speak([word]);
+};
+
+/* 8. สลับแท็บหมวดหมู่ */
+$("tabs").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  activeTab = b.dataset.t;
+  $("tabs").querySelectorAll("button").forEach(x => x.setAttribute("aria-selected", x === b));
+  $("pc").hidden = activeTab !== "c";
+  $("pv").hidden = activeTab !== "v";
+  $("pt").hidden = activeTab !== "t";
+  if (activeTab === "c") $("gc").querySelector("button").click();
+  if (activeTab === "v") {
+    renderVowelsGrid();
+    $("gv").querySelector("button").click();
+  }
+  if (activeTab === "t") {
+    renderTonesSection();
+    const firstTone = $("gt").querySelector("button:not(.disabled-tone)");
+    if (firstTone) firstTone.click();
+  }
+};
+
+/* 9. กระดานวาดเขียน & ระบบดัดเส้นตรง/โค้งอัตโนมัติ */
+const cv = $("cv"), ctx = cv.getContext("2d");
+
+function fit() {
+  const r = cv.getBoundingClientRect();
+  const d = window.devicePixelRatio || 1;
+  cv.width = r.width * d;
+  cv.height = r.height * d;
+  ctx.setTransform(d, 0, 0, d, 0, 0);
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.lineWidth = brushSize;
+  ctx.strokeStyle = getComputedStyle(document.body).color;
+}
+
+function clearCv() {
+  ctx.clearRect(0, 0, cv.width, cv.height);
+}
+
+function pt(e) {
+  const r = cv.getBoundingClientRect();
+  return [e.clientX - r.left, e.clientY - r.top];
+}
+
+function simplifyPoints(pts, minDist = 10) {
+  if (pts.length <= 2) return pts;
+  const out = [pts[0]];
+  for (let i = 1; i < pts.length - 1; i++) {
+    const prev = out[out.length - 1];
+    if (Math.hypot(pts[i][0] - prev[0], pts[i][1] - prev[1]) >= minDist) {
+      out.push(pts[i]);
+    }
+  }
+  out.push(pts[pts.length - 1]);
+  return out;
+}
+
+/* ฟังก์ชันแต่งเส้นอัตโนมัติ: ดัดเส้นตรงที่เอียงเล็กน้อยให้ตรงดิ่ง 90°/180° และเกลี่ยจุดโค้งให้เรียบ */
+function beautifyStroke(pts) {
+  if (!pts || pts.length < 3) return pts;
+
+  /* 1. เกลี่ยความสั่น (Moving Average 2 รอบ) โดยล็อกจุดเริ่มต้นและจุดปลาย */
+  let sm = pts.map(p => [...p]);
+  for (let pass = 0; pass < 2; pass++) {
+    const next = [sm[0]];
+    for (let i = 1; i < sm.length - 1; i++) {
+      next.push([
+        sm[i - 1][0] * 0.25 + sm[i][0] * 0.5 + sm[i + 1][0] * 0.25,
+        sm[i - 1][1] * 0.25 + sm[i][1] * 0.5 + sm[i + 1][1] * 0.25
+      ]);
+    }
+    next.push(sm[sm.length - 1]);
+    sm = next;
+  }
+
+  /* 2. ตรวจจับช่วงที่เป็นเส้นตรง (เช่น ขาตั้งฉากหรือฐานแนวนอน) แล้วดัดให้ตรงเป๊ะ */
+  const step = 4;
+  for (let i = 0; i < sm.length - step; i += 2) {
+    const j = Math.min(sm.length - 1, i + step);
+    const dx = sm[j][0] - sm[i][0];
+    const dy = sm[j][1] - sm[i][1];
+    const len = Math.hypot(dx, dy);
+    if (len < 18) continue;
+
+    /* ตรวจความตรงของช่วงนี้เทียบกับเส้นตรงเชื่อมหัว-ท้าย */
+    let maxDev = 0;
+    for (let k = i + 1; k < j; k++) {
+      const t = ((sm[k][0] - sm[i][0]) * dx + (sm[k][1] - sm[i][1]) * dy) / (len * len);
+      const px = sm[i][0] + t * dx;
+      const py = sm[i][1] + t * dy;
+      maxDev = Math.max(maxDev, Math.hypot(sm[k][0] - px, sm[k][1] - py));
+    }
+
+    if (maxDev < 4.5) {
+      const angle = Math.abs(Math.atan2(dy, dx) * 180 / Math.PI);
+      const isVertical = Math.abs(angle - 90) < 12;
+      const isHorizontal = angle < 12 || angle > 168;
+
+      if (isVertical) {
+        const avgX = (sm[i][0] + sm[j][0]) / 2;
+        for (let k = i; k <= j; k++) sm[k][0] = avgX;
+      } else if (isHorizontal) {
+        const avgY = (sm[i][1] + sm[j][1]) / 2;
+        for (let k = i; k <= j; k++) sm[k][1] = avgY;
+      } else {
+        for (let k = i + 1; k < j; k++) {
+          const ratio = (k - i) / (j - i);
+          sm[k][0] = sm[i][0] + dx * ratio;
+          sm[k][1] = sm[i][1] + dy * ratio;
+        }
+      }
+    }
+  }
+  return sm;
+}
+
+/* วาดเส้นด้วย Quadratic Bezier Midpoint ให้โค้งมนสวยงาม */
+function drawSmoothStroke(targetCtx, pts) {
+  if (!pts.length) return;
+  targetCtx.beginPath();
+  targetCtx.moveTo(pts[0][0], pts[0][1]);
+  if (pts.length === 1) {
+    targetCtx.lineTo(pts[0][0] + 0.1, pts[0][1] + 0.1);
+  } else if (pts.length === 2) {
+    targetCtx.lineTo(pts[1][0], pts[1][1]);
+  } else {
+    for (let i = 1; i < pts.length - 1; i++) {
+      const midX = (pts[i][0] + pts[i + 1][0]) / 2;
+      const midY = (pts[i][1] + pts[i + 1][1]) / 2;
+      targetCtx.quadraticCurveTo(pts[i][0], pts[i][1], midX, midY);
+    }
+    const lastPt = pts[pts.length - 1];
+    targetCtx.lineTo(lastPt[0], lastPt[1]);
+  }
+  targetCtx.stroke();
+}
+
+function drawRecOverlay() {
+  clearCv();
+  ctx.save();
+  ctx.lineWidth = 4.5;
+  ctx.strokeStyle = "#10b981";
+  recStrokes.forEach((st, idx) => {
+    if (!st.length) return;
+    drawSmoothStroke(ctx, st);
+
+    ctx.fillStyle = "#059669";
+    ctx.beginPath();
+    ctx.arc(st[0][0], st[0][1], 8, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 11px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(idx + 1, st[0][0], st[0][1]);
+  });
+  ctx.restore();
+}
+
+function saveRecordedStrokes() {
+  if (!PL) return;
+  if (!recStrokes.length) {
+    delete STROKE_GUIDES[cur.text];
+    refreshBadges();
+    updateRecCodeOutput();
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(STROKE_GUIDES));
+    } catch (_) {}
+    plan().then(r => { if (r) { PL = r; marks(false); } });
+    return;
+  }
+  const { x0, y0, bw, bh } = PL.box;
+  if (bw <= 0 || bh <= 0) return;
+  const normalized = recStrokes.map(st => {
+    const simp = simplifyPoints(st, 10);
+    return simp.map(([x, y]) => [
+      Number(((x - x0) / bw).toFixed(3)),
+      Number(((y - y0) / bh).toFixed(3))
+    ]);
+  });
+  STROKE_GUIDES[cur.text] = normalized;
+  refreshBadges();
+  updateRecCodeOutput();
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(STROKE_GUIDES));
+  } catch (_) {}
+  plan().then(r => { if (r) { PL = r; marks(false); } });
+}
+
+function updateRecCodeOutput() {
+  const lines = Object.entries(STROKE_GUIDES).map(([k, strokes]) => {
+    const sStr = strokes.map(st => "[" + st.map(p => `[${p[0]},${p[1]}]`).join(",") + "]").join(",");
+    return `  '${k}': [${sStr}]`;
+  });
+  $("recOut").value = `const STROKE_GUIDES = {\n${lines.join(",\n")}\n};`;
+}
+
+cv.addEventListener("pointerdown", e => {
+  stopDemo();
+  const p = pt(e);
+  draw = true;
+  last = p;
+  smoothPt = [...p];
+  strokePts = [p];
+  cv.setPointerCapture(e.pointerId);
+  if (recMode) {
+    curRecStroke = [p];
+    ctx.strokeStyle = "#10b981";
+    ctx.lineWidth = 4.5;
+  } else {
+    ctx.strokeStyle = getComputedStyle(document.body).color;
+    ctx.lineWidth = brushSize;
+  }
+  ctx.beginPath();
+  ctx.moveTo(...p);
+  ctx.lineTo(p[0] + 0.1, p[1] + 0.1);
+  ctx.stroke();
+});
+
+cv.addEventListener("pointermove", e => {
+  if (!draw) return;
+  const raw = pt(e);
+
+  /* ระบบดึงเชือกกันสั่น (ทำงานเฉพาะในโหมดบันทึกเส้นทาง) */
+  let p = raw;
+  if (recMode && stabRadius > 0) {
+    const dxS = raw[0] - smoothPt[0];
+    const dyS = raw[1] - smoothPt[1];
+    const dist = Math.hypot(dxS, dyS);
+    if (dist <= stabRadius) {
+      smoothPt = [smoothPt[0] + dxS * 0.08, smoothPt[1] + dyS * 0.08];
+    } else {
+      const pull = dist - stabRadius;
+      smoothPt = [
+        smoothPt[0] + (dxS / dist) * pull * 0.65,
+        smoothPt[1] + (dyS / dist) * pull * 0.65
+      ];
+    }
+    p = smoothPt;
+  }
+
+  if (Math.hypot(p[0] - last[0], p[1] - last[1]) < 1.2) return;
+
+  strokePts.push(p);
+  if (recMode) curRecStroke.push(p);
+
+  /* วาดด้วย Quadratic Bezier Midpoint เพื่อให้เส้นโค้งมนทันทีที่ลาก */
+  const len = strokePts.length;
+  if (len >= 3) {
+    const p1 = strokePts[len - 2];
+    const p2 = strokePts[len - 1];
+    const mid = [(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];
+    ctx.beginPath();
+    ctx.moveTo(...last);
+    ctx.quadraticCurveTo(p1[0], p1[1], mid[0], mid[1]);
+    ctx.stroke();
+    last = mid;
+  } else {
+    ctx.beginPath();
+    ctx.moveTo(...last);
+    ctx.lineTo(...p);
+    ctx.stroke();
+    last = p;
+  }
+});
+
+["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => {
+  if (!draw) return;
+  draw = false;
+  if (recMode && curRecStroke.length > 1) {
+    /* ลากเสร็จปุ๊บ: ดัดเส้นตั้ง/นอนที่เบี้ยวให้ตรงเป๊ะและเกลี่ยโค้งอัตโนมัติ */
+    const cleanPts = simplifyPoints(beautifyStroke(curRecStroke), 12);
+    recStrokes.push(cleanPts);
+    curRecStroke = [];
+    drawRecOverlay();
+    saveRecordedStrokes();
+  }
+}));
+
+$("clr").onclick = () => {
+  stopDemo();
+  clearCv();
+  if (recMode) {
+    recStrokes = [];
+    curRecStroke = [];
+  }
+};
+
+$("gh").onclick = () => {
+  ghostOn = !ghostOn;
+  $("ghost").classList.toggle("off", !ghostOn);
+  $("gh").textContent = ghostOn ? "ซ่อนตัวจาง" : "แสดงตัวจาง";
+};
+
+$("recToggle").onclick = () => {
+  recMode = !recMode;
+  $("recToggle").classList.toggle("rec-active", recMode);
+  $("recLabel").textContent = recMode ? "กำลังบันทึก (คลิกเพื่อปิด)" : "บันทึกเส้นทางเอง";
+  $("recBox").hidden = !recMode;
+  recStrokes = [];
+  curRecStroke = [];
+  clearCv();
+  if (recMode) updateRecCodeOutput();
+};
+
+$("recUndo").onclick = () => {
+  if (!recStrokes.length) return;
+  recStrokes.pop();
+  drawRecOverlay();
+  saveRecordedStrokes();
+};
+
+$("recClear").onclick = () => {
+  recStrokes = [];
+  clearCv();
+  saveRecordedStrokes();
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(STROKE_GUIDES));
+  } catch (_) {}
+};
+
+$("recTest").onclick = () => demo();
+
+$("recCopy").onclick = () => {
+  $("recOut").select();
+  try {
+    document.execCommand("copy");
+    const orig = $("recCopy").textContent;
+    $("recCopy").textContent = "คัดลอกโค้ดแล้ว!";
+    setTimeout(() => ($("recCopy").textContent = orig), 1600);
+  } catch (_) {}
+};
+
+/* ส่งออกไฟล์ HTML สำหรับผู้เรียนโดยเฉพาะ (ฝังเส้นทางถาวร + ลบเครื่องมือบันทึกออกทั้งหมด) */
+$("recExport").onclick = () => {
+  try {
+    const lines = Object.entries(STROKE_GUIDES).map(([k, strokes]) => {
+      const sStr = strokes.map(st => "[" + st.map(p => `[${p[0]},${p[1]}]`).join(",") + "]").join(",");
+      return `  '${k}': [${sStr}]`;
+    });
+    const newGuidesBlock = `const STROKE_GUIDES = {\n${lines.join(",\n")}\n};\nconst STUDENT_MODE = true;`;
+
+    const docClone = document.documentElement.cloneNode(true);
+    const cloneRecToggle = docClone.querySelector("#recToggle");
+    const cloneRecBox = docClone.querySelector("#recBox");
+    if (cloneRecToggle) cloneRecToggle.remove();
+    if (cloneRecBox) cloneRecBox.remove();
+
+    let fullHtml = "<!DOCTYPE html>\n" + docClone.outerHTML;
+    fullHtml = fullHtml.replace(
+      /const STROKE_GUIDES = \{[\s\S]*?\};\s*const STUDENT_MODE = (?:false|true);/,
+      newGuidesBlock
+    );
+
+    const blob = new Blob([fullHtml], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "thai_writing_for_student.html";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    const orig = $("recExport").textContent;
+    $("recExport").textContent = "ดาวน์โหลดไฟล์ผู้เรียนแล้ว!";
+    setTimeout(() => ($("recExport").textContent = orig), 2200);
+  } catch (_) {}
+};
+
+/* ลบเครื่องมือบันทึกอัตโนมัติเมื่อเปิดไฟล์เวอร์ชันผู้เรียน */
+if (STUDENT_MODE) {
+  if ($("recToggle")) $("recToggle").remove();
+  if ($("recBox")) $("recBox").remove();
+}
+
+/* ระบบเสียงผู้ชายภาษาไทยที่เสถียร (เช็กโฟลเดอร์ audio/ ก่อน -> ใช้เสียงผู้ชายในเครื่อง) */
+let activeAudioEl = null;
+
+function setSpeakingUI(isSpeaking) {
+  const btn = $("say");
+  if (!btn) return;
+  btn.classList.toggle("speaking", isSpeaking);
+  btn.textContent = isSpeaking ? "กำลังอ่าน..." : "ฟังเสียง";
+}
+
+function speakLocalMaleTTS(t) {
+  try {
+    if (!("speechSynthesis" in window)) {
+      setSpeakingUI(false);
+      return;
+    }
+    const parts = [].concat(t).map(s => String(s).replace(/ฃ/g, "ข").replace(/ฅ/g, "ค"));
+    speechSynthesis.cancel();
+
+    const voices = speechSynthesis.getVoices();
+    const thVoices = voices.filter(v => v.lang.toLowerCase().startsWith("th"));
+    const maleVoice =
+      thVoices.find(v => /niwat|male|man|pattara|sarawut|guy/i.test(v.name)) ||
+      thVoices[0] ||
+      null;
+
+    const rateVal = parseFloat($("speedSel").value) || 0.78;
+    let idx = 0;
+
+    const nextUtterance = () => {
+      if (idx >= parts.length) {
+        setSpeakingUI(false);
+        return;
+      }
+      const u = new SpeechSynthesisUtterance(parts[idx++]);
+      u.lang = "th-TH";
+      if (maleVoice) u.voice = maleVoice;
+      u.rate = rateVal;
+      u.pitch = 0.85;
+      u.onend = () => setTimeout(nextUtterance, 140);
+      u.onerror = () => setSpeakingUI(false);
+      speechSynthesis.speak(u);
+    };
+    nextUtterance();
+  } catch (_) {
+    setSpeakingUI(false);
+  }
+}
+
+function speak(t) {
+  if (activeAudioEl) {
+    activeAudioEl.pause();
+    activeAudioEl = null;
+  }
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
+  setSpeakingUI(true);
+
+  const localAudio = new Audio(`audio/${encodeURIComponent(cur.text)}.mp3`);
+  activeAudioEl = localAudio;
+  localAudio.onended = () => setSpeakingUI(false);
+  localAudio.onerror = () => speakLocalMaleTTS(t);
+  localAudio.play().catch(() => speakLocalMaleTTS(t));
+}
+
+if ("speechSynthesis" in window) {
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+}
+$("say").onclick = () => speak(cur.say);
+
+/* ระบบแอนิเมชันสาธิตลำดับเส้น */
+function sampleStrokes(strokesPx, stepPx = 2) {
+  const out = [];
+  strokesPx.forEach(pts => {
+    if (!pts.length) return;
+    out.push({ x: pts[0][0], y: pts[0][1], move: true });
+    for (let i = 1; i < pts.length; i++) {
+      const [x0, y0] = pts[i - 1], [x1, y1] = pts[i];
+      const dist = Math.hypot(x1 - x0, y1 - y0);
+      const steps = Math.max(1, Math.ceil(dist / stepPx));
+      for (let s = 1; s <= steps; s++) {
+        const ratio = s / steps;
+        out.push({ x: x0 + (x1 - x0) * ratio, y: y0 + (y1 - y0) * ratio, move: false });
+      }
+    }
+  });
+  return out;
+}
+
+function marks(showGuide = false) {
+  const st = $("stage");
+  const W = st.clientWidth || 330;
+  const H = st.clientHeight || 330;
+  const d = window.devicePixelRatio || 1;
+  dm.width = W * d;
+  dm.height = H * d;
+  dx.setTransform(d, 0, 0, d, 0, 0);
+  dx.clearRect(0, 0, W, H);
+
+  if (showGuide && PL && PL.path.length > 1) {
+    dx.save();
+    dx.setLineDash([5, 5]);
+    dx.lineWidth = 2.5;
+    dx.strokeStyle = "rgba(239, 68, 68, 0.5)";
+    dx.beginPath();
+    for (const p of PL.path) {
+      if (p.move) dx.moveTo(p.x, p.y);
+      else dx.lineTo(p.x, p.y);
+    }
+    dx.stroke();
+    dx.restore();
+  }
+}
+
+function dotM() {
+  if (!PL || !PL.path.length) return;
+  const a = PL.path[0];
+  dx.fillStyle = "#10b981";
+  dx.beginPath();
+  dx.arc(a.x, a.y, 7, 0, Math.PI * 2);
+  dx.fill();
+}
+
+function arrM() {
+  if (!PL || PL.path.length < 2) return;
+  const p = PL.path;
+  const e = p[p.length - 1];
+  const q = p[Math.max(0, p.length - 8)];
+  const t = Math.atan2(e.y - q.y, e.x - q.x);
+  dx.save();
+  dx.translate(e.x, e.y);
+  dx.rotate(t);
+  dx.fillStyle = "#ef4444";
+  dx.beginPath();
+  dx.moveTo(11, 0);
+  dx.lineTo(-6, -8);
+  dx.lineTo(-6, 8);
+  dx.closePath();
+  dx.fill();
+  dx.restore();
+}
+
+function stopDemo() {
+  dtok++;
+  pen.hidden = true;
+  marks(false);
+}
+
+function thin(b, W, H) {
+  let ch = true;
+  while (ch) {
+    ch = false;
+    for (let s = 0; s < 2; s++) {
+      const del = [];
+      for (let y = 1; y < H - 1; y++) {
+        for (let x = 1; x < W - 1; x++) {
+          const i = y * W + x;
+          if (!b[i]) continue;
+          const p2 = b[i - W], p3 = b[i - W + 1], p4 = b[i + 1], p5 = b[i + W + 1],
+                p6 = b[i + W], p7 = b[i + W - 1], p8 = b[i - 1], p9 = b[i - W - 1];
+          const B = p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9;
+          if (B < 2 || B > 6) continue;
+          const A = (!p2 && p3 ? 1 : 0) + (!p3 && p4 ? 1 : 0) + (!p4 && p5 ? 1 : 0) + (!p5 && p6 ? 1 : 0) +
+                    (!p6 && p7 ? 1 : 0) + (!p7 && p8 ? 1 : 0) + (!p8 && p9 ? 1 : 0) + (!p9 && p2 ? 1 : 0);
+          if (A !== 1) continue;
+          if (s === 0) {
+            if (p2 * p4 * p6 || p4 * p6 * p8) continue;
+          } else {
+            if (p2 * p4 * p8 || p2 * p6 * p8) continue;
+          }
+          del.push(i);
+        }
+      }
+      if (del.length) {
+        ch = true;
+        for (const i of del) b[i] = 0;
+      }
+    }
+  }
+}
+
+async function plan() {
+  const my = ++PT;
+  const st = $("stage");
+  const W = st.clientWidth || 330;
+  const H = st.clientHeight || 330;
+  const txt = cur.text;
+  const fs = parseFloat($("ghost").style.fontSize) || 195;
+  if (W <= 0 || H <= 0) return null;
+
+  try { await document.fonts.load(`400 ${fs}px "${curFont}"`, txt); } catch (_) {}
+  if (my !== PT) return null;
+
+  const g = document.createElement("canvas");
+  g.width = W;
+  g.height = H;
+  const gx = g.getContext("2d");
+  gx.font = `400 ${fs}px "${curFont}", sans-serif`;
+  gx.textAlign = "center";
+  gx.textBaseline = "middle";
+  const m = gx.measureText(txt);
+  const isTopMark = /^[\u0E31\u0E34-\u0E37\u0E47-\u0E4E]+$/.test(txt);
+  const isWideMark = txt === "้";
+  const isTriMark = txt === "๊";
+  const isBotMark = /^[\u0E38-\u0E3A]+$/.test(txt);
+  const fAsc = m.fontBoundingBoxAscent || fs * 0.95;
+  const fDsc = m.fontBoundingBoxDescent || fs * 0.35;
+  let bx = W / 2;
+  let by = H * 0.41 + (fAsc - fDsc) / 2;
+  if (isTopMark) {
+    bx = W * (isTriMark ? 0.67 : 0.63);
+    by = H * 0.71 + (fAsc - fDsc) / 2;
+  } else if (isBotMark) {
+    bx = W * 0.60;
+    by = H * 0.33 + (fAsc - fDsc) / 2;
+  }
+  gx.fillStyle = getComputedStyle(document.body).color;
+
+  if (txt === "–ำ") {
+    const postGap = fs * 0.14;
+    const wDash = gx.measureText("–").width * 1.12;
+    const wPost = gx.measureText("า").width;
+    const totalW = wDash + postGap + wPost;
+    const startX = W / 2 - totalW / 2;
+    const dashCenterX = startX + wDash / 2;
+
+    gx.save();
+    gx.translate(dashCenterX, by);
+    gx.scale(1.12, 1);
+    gx.fillText("–", 0, 0);
+    gx.restore();
+
+    gx.save();
+    gx.translate(dashCenterX - fs * 0.08, by - fs * 0.06);
+    gx.scale(1.38, 1.38);
+    gx.fillText("\u00A0\u0E4D", 0, 0);
+    gx.restore();
+
+    gx.fillText("า", startX + wDash + postGap + wPost / 2, by);
+  } else {
+    const soloMatch = txt.match(/^(.*)–([\u0E31\u0E34-\u0E3A])(.*)$/);
+    if (soloMatch) {
+      const [, pre, mark, post] = soloMatch;
+      const isBot = /[\u0E38-\u0E3A]/.test(mark);
+      const isU = mark === "\u0E38";
+      const isHan = mark === "\u0E31";
+      const postGap = post ? fs * 0.14 : 0;
+      const wPre = gx.measureText(pre).width;
+      const wDash = gx.measureText("–").width * 1.12;
+      const wPost = gx.measureText(post).width;
+      const totalW = wPre + wDash + postGap + wPost;
+      const startX = W / 2 - totalW / 2;
+
+      if (pre) gx.fillText(pre, startX + wPre / 2, by);
+
+      gx.save();
+      gx.translate(startX + wPre + wDash / 2, by);
+      gx.scale(1.12, 1);
+      gx.fillText("–", 0, 0);
+      gx.restore();
+
+      gx.save();
+      const dashCenterX = startX + wPre + wDash / 2;
+      if (isU) {
+        gx.translate(dashCenterX + fs * 0.04, by - fs * 0.16);
+        gx.scale(1.15, 1.22);
+        gx.fillText("\u00A0" + mark, 0, 0);
+      } else if (isBot) {
+        gx.translate(dashCenterX, by - fs * 0.14);
+        gx.scale(0.92, 1.24);
+        gx.fillText("\u00A0" + mark, 0, 0);
+      } else if (isHan) {
+        gx.translate(dashCenterX - fs * 0.04, by - fs * 0.12);
+        gx.scale(1.06, 1.06);
+        gx.fillText("\u00A0" + mark, 0, 0);
+      } else {
+        gx.translate(dashCenterX + fs * 0.14, by + fs * 0.06);
+        gx.scale(1.24, 1.24);
+        gx.fillText("\u00A0" + mark, 0, 0);
+      }
+      gx.restore();
+
+      if (post) gx.fillText(post, startX + wPre + wDash + postGap + wPost / 2, by);
+    } else {
+      gx.fillText(txt, bx, by);
+    }
+  }
+
+  const im = gx.getImageData(0, 0, W, H).data;
+  const b = new Uint8Array(W * H);
+  for (let i = 0; i < W * H; i++) b[i] = im[i * 4 + 3] > 110 ? 1 : 0;
+
+  let x0 = W, x1 = 0, y0 = H, y1 = 0;
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
+      if (b[y * W + x]) {
+        if (x < x0) x0 = x;
+        if (x > x1) x1 = x;
+        if (y < y0) y0 = y;
+        if (y > y1) y1 = y;
+      }
+    }
+  }
+  const box = { x0, y0, bw: Math.max(1, x1 - x0), bh: Math.max(1, y1 - y0) };
+
+  if (STROKE_GUIDES[txt] && x1 > x0 && y1 > y0) {
+    const rawStrokes = STROKE_GUIDES[txt].map(st =>
+      st.map(([nx, ny]) => [x0 + nx * box.bw, y0 + ny * box.bh])
+    );
+    const path = sampleStrokes(rawStrokes, 2);
+    return { text: txt, path, g, W, H, fs, box };
+  }
+
+  const ink = b.slice();
+  thin(b, W, H);
+  const pts = [];
+  for (let y = 1; y < H - 1; y++) {
+    for (let x = 1; x < W - 1; x++) {
+      if (b[y * W + x]) pts.push([x, y]);
+    }
+  }
+  if (!pts.length) return null;
+
+  const bg = new Uint8Array(W * H), stk = [];
+  const push = (x, y) => {
+    const i = y * W + x;
+    if (!ink[i] && !bg[i]) { bg[i] = 1; stk.push(i); }
+  };
+  for (let x = 0; x < W; x++) { push(x, 0); push(x, H - 1); }
+  for (let y = 0; y < H; y++) { push(0, y); push(W - 1, y); }
+  while (stk.length) {
+    const i = stk.pop(), x = i % W, y = (i / W) | 0;
+    if (x > 0) push(x - 1, y);
+    if (x < W - 1) push(x + 1, y);
+    if (y > 0) push(x, y - 1);
+    if (y < H - 1) push(x, y + 1);
+  }
+
+  const lab = new Uint8Array(W * H);
+  let head = null;
+  for (let i = 0; i < W * H; i++) {
+    if (ink[i] || bg[i] || lab[i]) continue;
+    let n = 0, sx = 0, sy = 0, ty = 1e9, tx = 0;
+    const s2 = [i], px = [];
+    lab[i] = 1;
+    while (s2.length) {
+      const j = s2.pop(), x = j % W, y = (j / W) | 0;
+      px.push(j); n++; sx += x; sy += y;
+      if (y < ty) { ty = y; tx = x; }
+      for (const k of [j - 1, j + 1, j - W, j + W]) {
+        if (k >= 0 && k < W * H && !ink[k] && !bg[k] && !lab[k]) { lab[k] = 1; s2.push(k); }
+      }
+    }
+    if (n < 25) continue;
+    const sc = sx / n * 0.5 + sy / n;
+    if (!head || sc < head.sc) head = { sc, tx, ty, px, cx: sx / n, cy: sy / n };
+  }
+
+  const nb = (x, y) => {
+    const o = [];
+    for (let j = -1; j <= 1; j++) {
+      for (let i = -1; i <= 1; i++) {
+        if ((i || j) && b[(y + j) * W + x + i]) o.push([x + i, y + j]);
+      }
+    }
+    return o;
+  };
+  const near = (arr, tx, ty) => {
+    let r = null, bd = 1e9;
+    for (const p of arr) {
+      const e = (p[0] - tx) ** 2 + (p[1] - ty) ** 2;
+      if (e < bd) { bd = e; r = p; }
+    }
+    return r;
+  };
+
+  const seen = new Uint8Array(W * H), rawPath = [];
+  let left = pts.length;
+  const take = p => {
+    const k = p[1] * W + p[0];
+    if (!seen[k]) { seen[k] = 1; left--; }
+    rawPath.push(p);
+  };
+
+  let ringPts = [], ringSet = null;
+  if (head) {
+    const hp = head.px.filter((_, i) => i % 3 === 0);
+    const dd = pts.map(p => {
+      let m = 1e9;
+      for (const j of hp) {
+        const e = (p[0] - j % W) ** 2 + (p[1] - ((j / W) | 0)) ** 2;
+        if (e < m) m = e;
+      }
+      return Math.sqrt(m);
+    });
+    const mn = Math.min(...dd);
+    ringPts = pts.filter((_, i) => dd[i] <= mn + 2);
+    ringSet = new Set(ringPts.map(p => p[1] * W + p[0]));
+  }
+
+  const ang = p => Math.atan2(-(p[1] - head.cy), p[0] - head.cx), T = Math.PI * 2;
+  const sweep = (st, ccw) => {
+    const sa = ang(st), sg = ccw ? 1 : -1;
+    const sorted = ringPts.map(p => [(((ang(p) - sa) * sg) % T + T) % T, p]).sort((a, b) => a[0] - b[0]);
+    let jn = null;
+    for (const [o, p] of sorted) {
+      const ex = nb(p[0], p[1]).find(q => !ringSet.has(q[1] * W + q[0]) && !seen[q[1] * W + q[0]]);
+      if (ex) { jn = { o, p, ex }; break; }
+    }
+    for (const [, p] of sorted) take(p);
+    if (!jn) return null;
+    for (const [o, p] of sorted) {
+      if (o > jn.o) break;
+      rawPath.push(p);
+    }
+    return [jn.ex[0] - jn.p[0], jn.ex[1] - jn.p[1]];
+  };
+
+  const walk = (dir, stop) => {
+    while (left > 0) {
+      const c = rawPath[rawPath.length - 1];
+      if (stop && stop(c)) return;
+      let best = null, bs = -9;
+      for (const q of nb(c[0], c[1])) {
+        if (seen[q[1] * W + q[0]]) continue;
+        const vx = q[0] - c[0], vy = q[1] - c[1];
+        const sc = (vx * dir[0] + vy * dir[1]) / Math.hypot(vx, vy) - (vx && vy ? 0.05 : 0);
+        if (sc > bs) { bs = sc; best = q; }
+      }
+      if (best) {
+        dir = [best[0] - c[0], best[1] - c[1]];
+        take(best);
+      } else {
+        if (left < Math.max(12, pts.length * 0.07)) break;
+        let n = null, nd = 1e9;
+        for (const p of pts) {
+          if (seen[p[1] * W + p[0]]) continue;
+          const e = (p[0] - c[0]) ** 2 + (p[1] - c[1]) ** 2;
+          if (e < nd) { nd = e; n = p; }
+        }
+        if (!n) break;
+        take(n);
+      }
+    }
+  };
+
+  if (head) {
+    const cwChars = "ฃซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ";
+    const ccw = !cwChars.includes(txt);
+    const top = near(ringPts, head.tx, head.ty);
+    const js = ringPts.filter(p => p[1] <= head.cy && nb(p[0], p[1]).some(q => !ringSet.has(q[1] * W + q[0])));
+    const st = js.length ? near(js, top[0], top[1]) : top;
+    const d = sweep(st, ccw);
+    walk(d || [1, 0]);
+  } else {
+    const ends = pts.filter(p => nb(p[0], p[1]).length === 1);
+    const pool = ends.length ? ends : pts;
+    let s = pool[0];
+    for (const p of pool) if (p[0] * 0.6 + p[1] < s[0] * 0.6 + s[1]) s = p;
+    take(s);
+    walk([1, 0]);
+  }
+
+  const path = rawPath.map((p, idx) => ({ x: p[0], y: p[1], move: idx === 0 }));
+  return { text: txt, path, g, W, H, fs, box };
+}
+
+async function demo() {
+  const my = ++dtok;
+  pen.hidden = true;
+  clearCv();
+  try {
+    if (!PL || PL.text !== cur.text) {
+      const r = await plan();
+      if (!r || my !== dtok) return;
+      PL = r;
+    }
+    const { path, g, W, H, fs } = PL;
+    marks(false);
+    dotM();
+
+    /* สร้างเลเยอร์หน้ากาก (Mask) เพื่อให้หมึกถมเต็มความหนาตัวอักษรพอดีโดยไม่ล้นไปเส้นอื่น */
+    const mask = document.createElement("canvas");
+    mask.width = W;
+    mask.height = H;
+    const mx = mask.getContext("2d");
+    mx.lineCap = "round";
+    mx.lineJoin = "round";
+    mx.lineWidth = Math.max(13, fs * 0.088);
+    mx.strokeStyle = "#000";
+
+    const revealed = document.createElement("canvas");
+    revealed.width = W;
+    revealed.height = H;
+    const rx = revealed.getContext("2d");
+
+    let k = 0;
+
+    const finishDemo = () => {
+      pen.hidden = true;
+      arrM();
+      setTimeout(() => {
+        if (my !== dtok) return;
+        marks(false);
+        if (recMode) drawRecOverlay();
+      }, 450);
+    };
+
+    const step = () => {
+      if (my !== dtok) return;
+      if (k >= path.length) {
+        finishDemo();
+        return;
+      }
+      const prev = k > 0 ? path[k - 1] : null;
+      const q = path[k++];
+
+      if (q.move || !prev) {
+        if (k > 1) {
+          dx.fillStyle = "#10b981";
+          dx.beginPath();
+          dx.arc(q.x, q.y, 5, 0, Math.PI * 2);
+          dx.fill();
+        }
+        mx.beginPath();
+        mx.moveTo(q.x, q.y);
+        mx.lineTo(q.x + 0.1, q.y + 0.1);
+        mx.stroke();
+      } else {
+        mx.beginPath();
+        mx.moveTo(prev.x, prev.y);
+        mx.lineTo(q.x, q.y);
+        mx.stroke();
+      }
+
+      /* ตัดเฉพาะส่วนของตัวอักษรที่หัวพู่กันลากผ่าน */
+      rx.globalCompositeOperation = "source-over";
+      rx.clearRect(0, 0, W, H);
+      rx.drawImage(mask, 0, 0);
+      rx.globalCompositeOperation = "source-in";
+      rx.drawImage(g, 0, 0);
+
+      /* วาดเฉพาะเส้นทึบสาธิตลงกระดาน */
+      marks(false);
+      dotM();
+      dx.drawImage(revealed, 0, 0);
+
+      pen.hidden = false;
+      pen.style.left = q.x + "px";
+      pen.style.top = q.y + "px";
+
+      if (k < path.length) setTimeout(() => requestAnimationFrame(step), 10);
+      else if (my === dtok) finishDemo();
+    };
+    step();
+  } catch (_) {
+    pen.hidden = true;
+  }
+}
+$("demo").onclick = demo;
+
+/* เริ่มต้นระบบทั้งหมดเมื่อโหลดหน้าเว็บ */
+fit();
+refreshBadges();
+renderVowelsGrid();
+renderTonesSection();
+addEventListener("resize", () => {
+  fit();
+  PL = null;
+  plan().then(r => {
+    if (r) {
+      PL = r;
+      marks(false);
+    }
+  });
+});
+$("gc").querySelector("button").click();
+</script>
+</body>
+</html>
