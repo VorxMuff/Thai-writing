@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>แบบฝึกหัดเขียนพยัญชนะไทย</title>
+<title>แบบฝึกสำหรับเขียนพยัญชนะภาษาไทย</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Mali:wght@400;600;700&family=Kodchasan:wght@400;600;700&display=swap" rel="stylesheet">
@@ -62,7 +62,7 @@ main {
   padding: 20px 16px 56px 42px;
 }
 
-/* ส่วนเฮดและตั้งค่า */
+/* ส่วนหัวและการตั้งค่า */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -122,7 +122,7 @@ h1 {
 }
 .theme-btn:hover { border-color: var(--btn); }
 
-/* แถบหมวดหมู่ */
+/* แท็บหมวดหมู่ */
 .tabs {
   display: flex;
   gap: 8px;
@@ -355,48 +355,41 @@ canvas {
   border-color: var(--rule);
 }
 .acts button.alt:hover { border-color: var(--ink); }
-.acts button.speaking {
-  background: linear-gradient(135deg, #0d9488 0%, #059669 100%);
-  border-color: #34d399;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
-}
 
-/* ปุ่มบันทึกเส้นทางเองทรงแคปซูล+ไฟ*/
+/* ปุ่มบันทึกเส้นทางเอง */
 .acts button.rec-btn {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  border-radius: 999px;
-  padding: 8px 16px;
-  background: var(--card);
+  gap: 8px;
+  border-radius: 10px;
+  padding: 8px 14px;
+  background: var(--paper);
   color: var(--ink);
-  border: 1.5px solid var(--rule);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border: 1.5px dashed var(--muted);
 }
-.rec-dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fca5a5, #ef4444 65%, #b91c1c);
-  box-shadow: 0 0 6px rgba(239, 68, 68, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.7);
+.acts button.rec-btn:hover {
+  border-color: var(--btn);
+  background: var(--card);
+}
+.rec-icon {
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
-  transition: all 0.25s ease;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .acts button.rec-btn.rec-active {
-  background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
-  border-color: #34d399;
-  color: #ffffff;
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  background: var(--ink);
+  border: 1.5px solid var(--ink);
+  color: var(--card);
 }
-.acts button.rec-btn.rec-active .rec-dot {
-  background: radial-gradient(circle at 35% 35%, #ffffff, #6ee7b7 55%, #10b981);
-  box-shadow: 0 0 10px #6ee7b7, 0 0 18px #34d399;
-  animation: ledPulse 1.25s infinite ease-in-out;
-}
-@keyframes ledPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.22); opacity: 0.78; }
+:root[data-theme="dark"] .acts button.rec-btn.rec-active {
+  background: var(--btn);
+  border-color: var(--btn);
+  color: var(--btnt);
 }
 
 /* กล่องโหมดบันทึกเส้นทาง */
@@ -404,8 +397,8 @@ canvas {
   margin-top: 14px;
   padding: 14px;
   border-radius: 12px;
-  border: 1.5px solid #10b981;
-  background: rgba(16, 185, 129, 0.06);
+  border: 1.5px dashed var(--btn);
+  background: rgba(148, 163, 184, 0.08);
 }
 .rec-box p {
   margin: 0 0 10px;
@@ -542,10 +535,6 @@ canvas {
 }
 .grid.v button b.mark-solo-bot {
   display: inline-block;
-  transform: translate(6px, -6px);
-}
-.grid.v button b.mark-solo-bot {
-  display: inline-block;
   transform: translate(4px, -6px);
 }
 
@@ -659,8 +648,8 @@ td.muted-cell {
 <main>
   <div class="top-bar">
     <div>
-      <h1>แบบฝึกหัดเขียนพยัญชนะไทย</h1>
-      <p class="sub">เลือกตัวอักษร แล้วใช้นิ้วหรือปากกาลากเส้นเขียนทับเงาตัวอักษรบนกระดาน</p>
+      <h1>แบบฝึกสำหรับเขียนพยัญชนะภาษาไทย</h1>
+      <p class="sub">เลือกตัวอักษร ใช้นิ้วหรือปากกาลากเส้นเขียนทับตัวจาง ๆ บนกระดาน</p>
     </div>
     <div class="top-controls">
       <label class="control-pill" title="เลือกรูปแบบตัวอักษร">
@@ -669,13 +658,6 @@ td.muted-cell {
           <option value="Sarabun" selected>Sarabun (มาตรฐาน)</option>
           <option value="Mali">Mali (ลายมือ)</option>
           <option value="Kodchasan">Kodchasan (ร่วมสมัย)</option>
-        </select>
-      </label>
-      <label class="control-pill" title="เลือกความเร็วเสียงอ่าน">
-        <span>เสียงอ่าน:</span>
-        <select id="speedSel">
-          <option value="0.78" selected>ปกติ</option>
-          <option value="0.58">ช้า (ฝึกฟังชัด)</option>
         </select>
       </label>
       <label class="control-pill" title="ปรับขนาดเส้นปากกา">
@@ -713,24 +695,26 @@ td.muted-cell {
       <p id="desc"></p>
       <div class="acts">
         <button id="demo">ดูวิธีเขียน</button>
-        <button id="say">ฟังเสียง</button>
         <button id="clr" class="alt">ล้างกระดาน</button>
-        <button id="gh" class="alt">ซ่อนเงา</button>
+        <button id="gh" class="alt">ซ่อนตัวจาง</button>
         <button id="recToggle" class="rec-btn">
-          <span class="rec-dot"></span>
+          <svg class="rec-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
           <span id="recLabel">บันทึกเส้นทางเอง</span>
         </button>
       </div>
 
       <div class="rec-box" id="recBox" hidden>
-        <p><b>โหมดบันทึกเส้นทาง:</b> ลากเส้นทับเงาตามลำดับได้เลย ทันทีที่ปล่อยปากการะบบจะ <b>ดัดเส้นเบี้ยวให้ตรงเป๊ะและโค้งมนสวยอัตโนมัติ</b></p>
+        <p><b>โหมดบันทึกเส้นทาง:</b> ลากเส้นทับตัวจางตามลำดับได้เลย ทันทีที่ปล่อยระบบจะ <b>ดัดเส้นเบี้ยวให้ตรงอัตโนมัติ</b></p>
         <div class="acts">
           <label class="control-pill" title="ตัวช่วยลดมือสั่นเวลาใช้เมาส์บันทึกเส้นทาง">
             <span>กันสั่น:</span>
             <select id="stabSel">
               <option value="0">ปิด</option>
               <option value="14">ปานกลาง</option>
-              <option value="24" selected>สูง (นิ่งกริบ)</option>
+              <option value="24" selected>สูง</option>
             </select>
           </label>
           <button id="recUndo" class="alt">ย้อนกลับ 1 เส้น</button>
@@ -813,7 +797,7 @@ td.muted-cell {
     </div>
 
     <div id="toneTableWrap" hidden>
-      <p class="note" style="margin-top: 16px;"><b>ตารางผันเสียงวรรณยุกต์ของ "<span id="toneTableChar">ก</span>"</b> (คลิกที่คำในตารางเพื่อฝึกเขียนและฟังเสียงได้ทันที):</p>
+      <p class="note" style="margin-top: 16px;"><b>ตารางผันเสียงวรรณยุกต์ของ "<span id="toneTableChar">ก</span>"</b> (คลิกที่คำในตารางเพื่อฝึกเขียนได้ทันที):</p>
       <table id="tt"></table>
     </div>
     <p class="note" style="margin-top:14px;">หมายเหตุ: <b>ฃ</b> (ฃ ฃวด) และ <b>ฅ</b> (ฅ ฅน) เลิกใช้แล้วในปัจจุบัน</p>
@@ -825,82 +809,82 @@ const $ = id => document.getElementById(id);
 
 /* 1. ข้อมูลพยัญชนะไทยครบ 44 ตัว */
 const CONSONANTS = [
-  { text: "ก", name: "ก ไก่", speak: ["กอ", "กอ ไก่"], cls: "m" },
-  { text: "ข", name: "ข ไข่", speak: ["ขอ", "ขอ ไข่"], cls: "h" },
-  { text: "ฃ", name: "ฃ ฃวด", speak: ["ขอ", "ขอ ขวด"], cls: "h", note: "เลิกใช้แล้วในปัจจุบัน" },
-  { text: "ค", name: "ค ควาย", speak: ["คอ", "คอ ควาย"], cls: "l" },
-  { text: "ฅ", name: "ฅ ฅน", speak: ["คอ", "คอ คน"], cls: "l", note: "เลิกใช้แล้วในปัจจุบัน" },
-  { text: "ฆ", name: "ฆ ระฆัง", speak: ["คอ", "คอ ระฆัง"], cls: "l", pali: true },
-  { text: "ง", name: "ง งู", speak: ["งอ", "งอ งู"], cls: "l" },
-  { text: "จ", name: "จ จาน", speak: ["จอ", "จอ จาน"], cls: "m" },
-  { text: "ฉ", name: "ฉ ฉิ่ง", speak: ["ฉอ", "ฉอ ฉิ่ง"], cls: "h" },
-  { text: "ช", name: "ช ช้าง", speak: ["ชอ", "ชอ ช้าง"], cls: "l" },
-  { text: "ซ", name: "ซ โซ่", speak: ["ซอ", "ซอ โซ่"], cls: "l" },
-  { text: "ฌ", name: "ฌ เฌอ", speak: ["ชอ", "ชอ เฌอ"], cls: "l", pali: true },
-  { text: "ญ", name: "ญ หญิง", speak: ["ยอ", "ยอ หญิง"], cls: "l", pali: true },
-  { text: "ฎ", name: "ฎ ชฎา", speak: ["ดอ", "ดอ ชฎา"], cls: "m", pali: true },
-  { text: "ฏ", name: "ฏ ปฏัก", speak: ["ตอ", "ตอ ปฏัก"], cls: "m", pali: true },
-  { text: "ฐ", name: "ฐ ฐาน", speak: ["ถอ", "ถอ ฐาน"], cls: "h", pali: true },
-  { text: "ฑ", name: "ฑ มณโฑ", speak: ["ทอ", "ทอ มณโฑ"], cls: "l", pali: true },
-  { text: "ฒ", name: "ฒ ผู้เฒ่า", speak: ["ทอ", "ทอ ผู้เฒ่า"], cls: "l", pali: true },
-  { text: "ณ", name: "ณ เณร", speak: ["นอ", "นอ เณร"], cls: "l", pali: true },
-  { text: "ด", name: "ด เด็ก", speak: ["ดอ", "ดอ เด็ก"], cls: "m" },
-  { text: "ต", name: "ต เต่า", speak: ["ตอ", "ตอ เต่า"], cls: "m" },
-  { text: "ถ", name: "ถ ถุง", speak: ["ถอ", "ถอ ถุง"], cls: "h" },
-  { text: "ท", name: "ท ทหาร", speak: ["ทอ", "ทอ ทหาร"], cls: "l" },
-  { text: "ธ", name: "ธ ธง", speak: ["ทอ", "ทอ ธง"], cls: "l", pali: true },
-  { text: "น", name: "น หนู", speak: ["นอ", "นอ หนู"], cls: "l" },
-  { text: "บ", name: "บ ใบไม้", speak: ["บอ", "บอ ใบไม้"], cls: "m" },
-  { text: "ป", name: "ป ปลา", speak: ["ปอ", "ปอ ปลา"], cls: "m" },
-  { text: "ผ", name: "ผ ผึ้ง", speak: ["ผอ", "ผอ ผึ้ง"], cls: "h" },
-  { text: "ฝ", name: "ฝ ฝา", speak: ["ฝอ", "ฝอ ฝา"], cls: "h" },
-  { text: "พ", name: "พ พาน", speak: ["พอ", "พอ พาน"], cls: "l" },
-  { text: "ฟ", name: "ฟ ฟัน", speak: ["ฟอ", "ฟอ ฟัน"], cls: "l" },
-  { text: "ภ", name: "ภ สำเภา", speak: ["พอ", "พอ สำเภา"], cls: "l", pali: true },
-  { text: "ม", name: "ม ม้า", speak: ["มอ", "มอ ม้า"], cls: "l" },
-  { text: "ย", name: "ย ยักษ์", speak: ["ยอ", "ยอ ยักษ์"], cls: "l" },
-  { text: "ร", name: "ร เรือ", speak: ["รอ", "รอ เรือ"], cls: "l" },
-  { text: "ล", name: "ล ลิง", speak: ["ลอ", "ลอ ลิง"], cls: "l" },
-  { text: "ว", name: "ว แหวน", speak: ["วอ", "วอ แหวน"], cls: "l" },
-  { text: "ศ", name: "ศ ศาลา", speak: ["สอ", "สอ ศาลา"], cls: "h", pali: true },
-  { text: "ษ", name: "ษ ฤๅษี", speak: ["สอ", "สอ ฤๅษี"], cls: "h", pali: true },
-  { text: "ส", name: "ส เสือ", speak: ["สอ", "สอ เสือ"], cls: "h" },
-  { text: "ห", name: "ห หีบ", speak: ["หอ", "หอ หีบ"], cls: "h" },
-  { text: "ฬ", name: "ฬ จุฬา", speak: ["ลอ", "ลอ จุฬา"], cls: "l", pali: true },
-  { text: "อ", name: "อ อ่าง", speak: ["ออ", "ออ อ่าง"], cls: "m" },
-  { text: "ฮ", name: "ฮ นกฮูก", speak: ["ฮอ", "ฮอ นกฮูก"], cls: "l" }
+  { text: "ก", name: "ก ไก่", cls: "m" },
+  { text: "ข", name: "ข ไข่", cls: "h" },
+  { text: "ฃ", name: "ฃ ฃวด", cls: "h", note: "เลิกใช้แล้วในปัจจุบัน" },
+  { text: "ค", name: "ค ควาย", cls: "l" },
+  { text: "ฅ", name: "ฅ ฅน", cls: "l", note: "เลิกใช้แล้วในปัจจุบัน" },
+  { text: "ฆ", name: "ฆ ระฆัง", cls: "l", pali: true },
+  { text: "ง", name: "ง งู", cls: "l" },
+  { text: "จ", name: "จ จาน", cls: "m" },
+  { text: "ฉ", name: "ฉ ฉิ่ง", cls: "h" },
+  { text: "ช", name: "ช ช้าง", cls: "l" },
+  { text: "ซ", name: "ซ โซ่", cls: "l" },
+  { text: "ฌ", name: "ฌ เฌอ", cls: "l", pali: true },
+  { text: "ญ", name: "ญ หญิง", cls: "l", pali: true },
+  { text: "ฎ", name: "ฎ ชฎา", cls: "m", pali: true },
+  { text: "ฏ", name: "ฏ ปฏัก", cls: "m", pali: true },
+  { text: "ฐ", name: "ฐ ฐาน", cls: "h", pali: true },
+  { text: "ฑ", name: "ฑ มณโฑ", cls: "l", pali: true },
+  { text: "ฒ", name: "ฒ ผู้เฒ่า", cls: "l", pali: true },
+  { text: "ณ", name: "ณ เณร", cls: "l", pali: true },
+  { text: "ด", name: "ด เด็ก", cls: "m" },
+  { text: "ต", name: "ต เต่า", cls: "m" },
+  { text: "ถ", name: "ถ ถุง", cls: "h" },
+  { text: "ท", name: "ท ทหาร", cls: "l" },
+  { text: "ธ", name: "ธ ธง", cls: "l", pali: true },
+  { text: "น", name: "น หนู", cls: "l" },
+  { text: "บ", name: "บ ใบไม้", cls: "m" },
+  { text: "ป", name: "ป ปลา", cls: "m" },
+  { text: "ผ", name: "ผ ผึ้ง", cls: "h" },
+  { text: "ฝ", name: "ฝ ฝา", cls: "h" },
+  { text: "พ", name: "พ พาน", cls: "l" },
+  { text: "ฟ", name: "ฟ ฟัน", cls: "l" },
+  { text: "ภ", name: "ภ สำเภา", cls: "l", pali: true },
+  { text: "ม", name: "ม ม้า", cls: "l" },
+  { text: "ย", name: "ย ยักษ์", cls: "l" },
+  { text: "ร", name: "ร เรือ", cls: "l" },
+  { text: "ล", name: "ล ลิง", cls: "l" },
+  { text: "ว", name: "ว แหวน", cls: "l" },
+  { text: "ศ", name: "ศ ศาลา", cls: "h", pali: true },
+  { text: "ษ", name: "ษ ฤๅษี", cls: "h", pali: true },
+  { text: "ส", name: "ส เสือ", cls: "h" },
+  { text: "ห", name: "ห หีบ", cls: "h" },
+  { text: "ฬ", name: "ฬ จุฬา", cls: "l", pali: true },
+  { text: "อ", name: "อ อ่าง", cls: "m" },
+  { text: "ฮ", name: "ฮ นกฮูก", cls: "l" }
 ];
 
 /* 2. ข้อมูลสระครบ 28 รูป */
 const VOWELS = [
-  { form: "–ะ", solo: "–ะ", make: c => `${c}ะ`, name: "สระอะ", type: "เสียงสั้น", speak: c => ["สระ อะ", `${c}ะ`] },
-  { form: "–า", solo: "–า", make: c => `${c}า`, name: "สระอา", type: "เสียงยาว", speak: c => ["สระ อา", `${c}า`] },
-  { form: "–ิ", solo: "–ิ", make: c => `${c}ิ`, name: "สระอิ", type: "เสียงสั้น", speak: c => ["สระ อิ", `${c}ิ`] },
-  { form: "–ี", solo: "–ี", make: c => `${c}ี`, name: "สระอี", type: "เสียงยาว", speak: c => ["สระ อี", `${c}ี`] },
-  { form: "–ึ", solo: "–ึ", make: c => `${c}ึ`, name: "สระอึ", type: "เสียงสั้น", speak: c => ["สระ อึ", `${c}ึ`] },
-  { form: "–ื", solo: "–ือ", make: c => `${c}ือ`, name: "สระอือ", type: "เสียงยาว", speak: c => ["สระ อือ", `${c}ือ`] },
-  { form: "–ุ", solo: "–ุ", make: c => `${c}ุ`, name: "สระอุ", type: "เสียงสั้น", speak: c => ["สระ อุ", `${c}ุ`] },
-  { form: "–ู", solo: "–ู", make: c => `${c}ู`, name: "สระอู", type: "เสียงยาว", speak: c => ["สระ อู", `${c}ู`] },
-  { form: "เ–ะ", solo: "เ–ะ", make: c => `เ${c}ะ`, name: "สระเอะ", type: "เสียงสั้น", speak: c => ["สระ เอะ", `เ${c}ะ`] },
-  { form: "เ–", solo: "เ–", make: c => `เ${c}`, name: "สระเอ", type: "เสียงยาว", speak: c => ["สระ เอ", `เ${c}`] },
-  { form: "แ–ะ", solo: "แ–ะ", make: c => `แ${c}ะ`, name: "สระแอะ", type: "เสียงสั้น", speak: c => ["สระ แอะ", `แ${c}ะ`] },
-  { form: "แ–", solo: "แ–", make: c => `แ${c}`, name: "สระแอ", type: "เสียงยาว", speak: c => ["สระ แอ", `แ${c}`] },
-  { form: "โ–ะ", solo: "โ–ะ", make: c => `โ${c}ะ`, name: "สระโอะ", type: "เสียงสั้น", speak: c => ["สระ โอะ", `โ${c}ะ`] },
-  { form: "โ–", solo: "โ–", make: c => `โ${c}`, name: "สระโอ", type: "เสียงยาว", speak: c => ["สระ โอ", `โ${c}`] },
-  { form: "เ–าะ", solo: "เ–าะ", make: c => `เ${c}าะ`, name: "สระเอาะ", type: "เสียงสั้น", speak: c => ["สระ เอาะ", `เ${c}าะ`] },
-  { form: "–อ", solo: "–อ", make: c => `${c}อ`, name: "สระออ", type: "เสียงยาว", speak: c => ["สระ ออ", `${c}อ`] },
-  { form: "เ–อะ", solo: "เ–อะ", make: c => `เ${c}อะ`, name: "สระเออะ", type: "เสียงสั้น", speak: c => ["สระ เออะ", `เ${c}อะ`] },
-  { form: "เ–อ", solo: "เ–อ", make: c => `เ${c}อ`, name: "สระเออ", type: "เสียงยาว", speak: c => ["สระ เออ", `เ${c}อ`] },
-  { form: "เ–ียะ", solo: "เ–ียะ", make: c => `เ${c}ียะ`, name: "สระเอียะ", type: "เสียงสั้น", speak: c => ["สระ เอียะ", `เ${c}ียะ`] },
-  { form: "เ–ีย", solo: "เ–ีย", make: c => `เ${c}ีย`, name: "สระเอีย", type: "เสียงยาว", speak: c => ["สระ เอีย", `เ${c}ีย`] },
-  { form: "เ–ือะ", solo: "เ–ือะ", make: c => `เ${c}ือะ`, name: "สระเอือะ", type: "เสียงสั้น", speak: c => ["สระ เอือะ", `เ${c}ือะ`] },
-  { form: "เ–ือ", solo: "เ–ือ", make: c => `เ${c}ือ`, name: "สระเอือ", type: "เสียงยาว", speak: c => ["สระ เอือ", `เ${c}ือ`] },
-  { form: "–ัวะ", solo: "–ัวะ", make: c => `${c}ัวะ`, name: "สระอัวะ", type: "เสียงสั้น", speak: c => ["สระ อัวะ", `${c}ัวะ`] },
-  { form: "–ัว", solo: "–ัว", make: c => `${c}ัว`, name: "สระอัว", type: "เสียงยาว", speak: c => ["สระ อัว", `${c}ัว`] },
-  { form: "–ำ", solo: "–ำ", make: c => `${c}ำ`, name: "สระอำ", type: "เสียงสั้น", speak: c => ["สระ อำ", `${c}ำ`] },
-  { form: "ไ–", solo: "ไ–", make: c => `ไ${c}`, name: "สระไอไม้มลาย", type: "เสียงสั้น", speak: c => ["สระ ไอ", `ไ${c}`] },
-  { form: "ใ–", solo: "ใ–", make: c => `ใ${c}`, name: "สระใอไม้ม้วน", type: "เสียงสั้น", speak: c => ["สระ ใอ", `ใ${c}`] },
-  { form: "เ–า", solo: "เ–า", make: c => `เ${c}า`, name: "สระเอา", type: "เสียงสั้น", speak: c => ["สระ เอา", `เ${c}า`] }
+  { form: "–ะ", solo: "–ะ", make: c => `${c}ะ`, name: "สระอะ", type: "เสียงสั้น" },
+  { form: "–า", solo: "–า", make: c => `${c}า`, name: "สระอา", type: "เสียงยาว" },
+  { form: "–ิ", solo: "–ิ", make: c => `${c}ิ`, name: "สระอิ", type: "เสียงสั้น" },
+  { form: "–ี", solo: "–ี", make: c => `${c}ี`, name: "สระอี", type: "เสียงยาว" },
+  { form: "–ึ", solo: "–ึ", make: c => `${c}ึ`, name: "สระอึ", type: "เสียงสั้น" },
+  { form: "–ื", solo: "–ือ", make: c => `${c}ือ`, name: "สระอือ", type: "เสียงยาว" },
+  { form: "–ุ", solo: "–ุ", make: c => `${c}ุ`, name: "สระอุ", type: "เสียงสั้น" },
+  { form: "–ู", solo: "–ู", make: c => `${c}ู`, name: "สระอู", type: "เสียงยาว" },
+  { form: "เ–ะ", solo: "เ–ะ", make: c => `เ${c}ะ`, name: "สระเอะ", type: "เสียงสั้น" },
+  { form: "เ–", solo: "เ–", make: c => `เ${c}`, name: "สระเอ", type: "เสียงยาว" },
+  { form: "แ–ะ", solo: "แ–ะ", make: c => `แ${c}ะ`, name: "สระแอะ", type: "เสียงสั้น" },
+  { form: "แ–", solo: "แ–", make: c => `แ${c}`, name: "สระแอ", type: "เสียงยาว" },
+  { form: "โ–ะ", solo: "โ–ะ", make: c => `โ${c}ะ`, name: "สระโอะ", type: "เสียงสั้น" },
+  { form: "โ–", solo: "โ–", make: c => `โ${c}`, name: "สระโอ", type: "เสียงยาว" },
+  { form: "เ–าะ", solo: "เ–าะ", make: c => `เ${c}าะ`, name: "สระเอาะ", type: "เสียงสั้น" },
+  { form: "–อ", solo: "–อ", make: c => `${c}อ`, name: "สระออ", type: "เสียงยาว" },
+  { form: "เ–อะ", solo: "เ–อะ", make: c => `เ${c}อะ`, name: "สระเออะ", type: "เสียงสั้น" },
+  { form: "เ–อ", solo: "เ–อ", make: c => `เ${c}อ`, name: "สระเออ", type: "เสียงยาว" },
+  { form: "เ–ียะ", solo: "เ–ียะ", make: c => `เ${c}ียะ`, name: "สระเอียะ", type: "เสียงสั้น" },
+  { form: "เ–ีย", solo: "เ–ีย", make: c => `เ${c}ีย`, name: "สระเอีย", type: "เสียงยาว" },
+  { form: "เ–ือะ", solo: "เ–ือะ", make: c => `เ${c}ือะ`, name: "สระเอือะ", type: "เสียงสั้น" },
+  { form: "เ–ือ", solo: "เ–ือ", make: c => `เ${c}ือ`, name: "สระเอือ", type: "เสียงยาว" },
+  { form: "–ัวะ", solo: "–ัวะ", make: c => `${c}ัวะ`, name: "สระอัวะ", type: "เสียงสั้น" },
+  { form: "–ัว", solo: "–ัว", make: c => `${c}ัว`, name: "สระอัว", type: "เสียงยาว" },
+  { form: "–ำ", solo: "–ำ", make: c => `${c}ำ`, name: "สระอำ", type: "เสียงสั้น" },
+  { form: "ไ–", solo: "ไ–", make: c => `ไ${c}`, name: "สระไอไม้มลาย", type: "เสียงสั้น" },
+  { form: "ใ–", solo: "ใ–", make: c => `ใ${c}`, name: "สระใอไม้ม้วน", type: "เสียงสั้น" },
+  { form: "เ–า", solo: "เ–า", make: c => `เ${c}า`, name: "สระเอา", type: "เสียงสั้น" }
 ];
 
 /* 3. ข้อมูลวรรณยุกต์ 4 รูป */
@@ -946,7 +930,7 @@ const STROKE_GUIDES = {
 };
 const STUDENT_MODE = false;
 
-/* โหลดเส้นทางที่บันทึกไว้ในเบราว์เซอร์ (หากมี) */
+/* โหลดเส้นทางที่บันทึกไว้ในเบราว์เซอร์ (ถ้ามี) */
 const STORAGE_KEY = "thai_writing_stroke_guides_v1";
 try {
   const savedGuides = localStorage.getItem(STORAGE_KEY);
@@ -956,8 +940,7 @@ try {
 } catch (_) {}
 
 /* สถานะแอปพลิเคชัน */
-let activeConsonant = CONSONANTS[0];
-let cur = { text: "ก", say: ["กอ", "กอ ไก่"] };
+let cur = { text: "ก" };
 let ghostOn = true;
 let curFont = "Sarabun";
 let brushSize = 10;
@@ -974,7 +957,7 @@ let PT = 0;
 let PL = null;
 const dm = $("dm"), dx = dm.getContext("2d"), pen = $("pen");
 
-/* ปุ่มตั้งค่าฟอนต์ ขนาดเส้น ระดับกันสั่น และสลับธีม */
+/* ปุ่มตั้งค่าฟอนต์ ขนาดเส้น ระดับกันสั่น สลับธีม */
 $("fontSel").onchange = e => {
   curFont = e.target.value;
   document.documentElement.style.setProperty("--app-font", `"${curFont}"`);
@@ -1065,8 +1048,8 @@ function renderGhostContent(txt) {
   }
 }
 
-function setPad(text, title, desc, say, titleHtml = null) {
-  cur = { text, say };
+function setPad(text, title, desc, titleHtml = null) {
+  cur = { text };
   renderGhostContent(text);
   updateGhostFontSize();
   if (titleHtml) $("ttl").innerHTML = titleHtml;
@@ -1135,7 +1118,7 @@ $("gc").onclick = e => {
   if (item.pali) extra.push("พยัญชนะบาลี-สันสกฤต");
   if (item.note) extra.push(item.note);
   const desc = `${CLASS_NAMES[item.cls]}${extra.length ? " · " + extra.join(" · ") : ""}`;
-  setPad(item.text, item.name, desc, item.speak);
+  setPad(item.text, item.name, desc);
   mark($("gc"), b);
   updateNavBar();
 };
@@ -1221,9 +1204,8 @@ $("gv").onclick = e => {
   const desc = isSolo
     ? `เขียนเฉพาะรูปสระ · ${v.type}`
     : `ประสมกับ ${cObj.name} · ${v.type}`;
-  const sayArr = isSolo ? [v.name] : v.speak(cObj.text);
 
-  setPad(word, `${v.name} (${v.form})`, desc, sayArr);
+  setPad(word, `${v.name} (${v.form})`, desc);
   mark($("gv"), b);
   updateNavBar();
 };
@@ -1328,10 +1310,10 @@ $("gt").onclick = e => {
   const t = TONES[+b.dataset.i];
   if (isSolo) {
     const soloText = t.mark;
-    setPad(soloText, `${t.name} (${soloText})`, `เขียนเฉพาะรูปวรรณยุกต์`, [t.name], `${t.name} (<span class="inline-mark">\u00A0${soloText}</span>)`);
+    setPad(soloText, `${t.name} (${soloText})`, `เขียนเฉพาะรูปวรรณยุกต์`, `${t.name} (<span class="inline-mark">\u00A0${soloText}</span>)`);
   } else {
     const word = `${cObj.text}${t.mark}า`;
-    setPad(word, `${t.name} (${t.mark})`, `ประสมกับ ${cObj.name} (${CLASS_NAMES[cObj.cls]})`, [t.name, word], `${t.name} (<span class="inline-mark">\u00A0${t.mark}</span>)`);
+    setPad(word, `${t.name} (${t.mark})`, `ประสมกับ ${cObj.name} (${CLASS_NAMES[cObj.cls]})`, `${t.name} (<span class="inline-mark">\u00A0${t.mark}</span>)`);
   }
   mark($("gt"), b);
   updateNavBar();
@@ -1342,8 +1324,7 @@ $("tt").onclick = e => {
   if (!td) return;
   const word = td.dataset.word;
   const toneName = td.dataset.tone;
-  setPad(word, `คำว่า "${word}"`, `ออกเสียง${toneName}`, [word]);
-  speak([word]);
+  setPad(word, `คำว่า "${word}"`, `ออกเสียง${toneName}`);
 };
 
 /* 8. สลับแท็บหมวดหมู่ */
@@ -1404,11 +1385,9 @@ function simplifyPoints(pts, minDist = 10) {
   return out;
 }
 
-/* ฟังก์ชันแต่งเส้นอัตโนมัติ: ดัดเส้นตรงที่เอียงเล็กน้อยให้ตรงดิ่ง 90°/180° และเกลี่ยจุดโค้งให้เรียบ */
 function beautifyStroke(pts) {
   if (!pts || pts.length < 3) return pts;
 
-  /* 1. เกลี่ยความสั่น (Moving Average 2 รอบ) โดยล็อกจุดเริ่มต้นและจุดปลาย */
   let sm = pts.map(p => [...p]);
   for (let pass = 0; pass < 2; pass++) {
     const next = [sm[0]];
@@ -1422,7 +1401,6 @@ function beautifyStroke(pts) {
     sm = next;
   }
 
-  /* 2. ตรวจจับช่วงที่เป็นเส้นตรง (เช่น ขาตั้งฉากหรือฐานแนวนอน) แล้วดัดให้ตรงเป๊ะ */
   const step = 4;
   for (let i = 0; i < sm.length - step; i += 2) {
     const j = Math.min(sm.length - 1, i + step);
@@ -1431,7 +1409,6 @@ function beautifyStroke(pts) {
     const len = Math.hypot(dx, dy);
     if (len < 18) continue;
 
-    /* ตรวจความตรงของช่วงนี้เทียบกับเส้นตรงเชื่อมหัว-ท้าย */
     let maxDev = 0;
     for (let k = i + 1; k < j; k++) {
       const t = ((sm[k][0] - sm[i][0]) * dx + (sm[k][1] - sm[i][1]) * dy) / (len * len);
@@ -1463,7 +1440,6 @@ function beautifyStroke(pts) {
   return sm;
 }
 
-/* วาดเส้นด้วย Quadratic Bezier Midpoint ให้โค้งมนสวยงาม */
 function drawSmoothStroke(targetCtx, pts) {
   if (!pts.length) return;
   targetCtx.beginPath();
@@ -1571,7 +1547,6 @@ cv.addEventListener("pointermove", e => {
   if (!draw) return;
   const raw = pt(e);
 
-  /* ระบบดึงเชือกกันสั่น (ทำงานเฉพาะในโหมดบันทึกเส้นทาง) */
   let p = raw;
   if (recMode && stabRadius > 0) {
     const dxS = raw[0] - smoothPt[0];
@@ -1594,7 +1569,6 @@ cv.addEventListener("pointermove", e => {
   strokePts.push(p);
   if (recMode) curRecStroke.push(p);
 
-  /* วาดด้วย Quadratic Bezier Midpoint เพื่อให้เส้นโค้งมนทันทีที่ลาก */
   const len = strokePts.length;
   if (len >= 3) {
     const p1 = strokePts[len - 2];
@@ -1618,7 +1592,6 @@ cv.addEventListener("pointermove", e => {
   if (!draw) return;
   draw = false;
   if (recMode && curRecStroke.length > 1) {
-    /* ลากเสร็จปุ๊บ: ดัดเส้นตั้ง/นอนที่เบี้ยวให้ตรงเป๊ะและเกลี่ยโค้งอัตโนมัติ */
     const cleanPts = simplifyPoints(beautifyStroke(curRecStroke), 12);
     recStrokes.push(cleanPts);
     curRecStroke = [];
@@ -1681,7 +1654,7 @@ $("recCopy").onclick = () => {
   } catch (_) {}
 };
 
-/* ส่งออกไฟล์ HTML สำหรับผู้เรียนโดยเฉพาะ (ฝังเส้นทางถาวร + ลบเครื่องมือบันทึกออกทั้งหมด) */
+/* ส่งออกไฟล์ HTML สำหรับผู้เรียนโดยเฉพาะ */
 $("recExport").onclick = () => {
   try {
     const lines = Object.entries(STROKE_GUIDES).map(([k, strokes]) => {
@@ -1718,81 +1691,10 @@ $("recExport").onclick = () => {
   } catch (_) {}
 };
 
-/* ลบเครื่องมือบันทึกอัตโนมัติเมื่อเปิดไฟล์เวอร์ชันผู้เรียน */
 if (STUDENT_MODE) {
   if ($("recToggle")) $("recToggle").remove();
   if ($("recBox")) $("recBox").remove();
 }
-
-/* ระบบเสียงผู้ชายภาษาไทยที่เสถียร (เช็กโฟลเดอร์ audio/ ก่อน -> ใช้เสียงผู้ชายในเครื่อง) */
-let activeAudioEl = null;
-
-function setSpeakingUI(isSpeaking) {
-  const btn = $("say");
-  if (!btn) return;
-  btn.classList.toggle("speaking", isSpeaking);
-  btn.textContent = isSpeaking ? "กำลังอ่าน..." : "ฟังเสียง";
-}
-
-function speakLocalMaleTTS(t) {
-  try {
-    if (!("speechSynthesis" in window)) {
-      setSpeakingUI(false);
-      return;
-    }
-    const parts = [].concat(t).map(s => String(s).replace(/ฃ/g, "ข").replace(/ฅ/g, "ค"));
-    speechSynthesis.cancel();
-
-    const voices = speechSynthesis.getVoices();
-    const thVoices = voices.filter(v => v.lang.toLowerCase().startsWith("th"));
-    const maleVoice =
-      thVoices.find(v => /niwat|male|man|pattara|sarawut|guy/i.test(v.name)) ||
-      thVoices[0] ||
-      null;
-
-    const rateVal = parseFloat($("speedSel").value) || 0.78;
-    let idx = 0;
-
-    const nextUtterance = () => {
-      if (idx >= parts.length) {
-        setSpeakingUI(false);
-        return;
-      }
-      const u = new SpeechSynthesisUtterance(parts[idx++]);
-      u.lang = "th-TH";
-      if (maleVoice) u.voice = maleVoice;
-      u.rate = rateVal;
-      u.pitch = 0.85;
-      u.onend = () => setTimeout(nextUtterance, 140);
-      u.onerror = () => setSpeakingUI(false);
-      speechSynthesis.speak(u);
-    };
-    nextUtterance();
-  } catch (_) {
-    setSpeakingUI(false);
-  }
-}
-
-function speak(t) {
-  if (activeAudioEl) {
-    activeAudioEl.pause();
-    activeAudioEl = null;
-  }
-  if ("speechSynthesis" in window) speechSynthesis.cancel();
-  setSpeakingUI(true);
-
-  const localAudio = new Audio(`audio/${encodeURIComponent(cur.text)}.mp3`);
-  activeAudioEl = localAudio;
-  localAudio.onended = () => setSpeakingUI(false);
-  localAudio.onerror = () => speakLocalMaleTTS(t);
-  localAudio.play().catch(() => speakLocalMaleTTS(t));
-}
-
-if ("speechSynthesis" in window) {
-  speechSynthesis.getVoices();
-  speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
-}
-$("say").onclick = () => speak(cur.say);
 
 /* ระบบแอนิเมชันสาธิตลำดับเส้น */
 function sampleStrokes(strokesPx, stepPx = 2) {
@@ -1926,7 +1828,6 @@ async function plan() {
   gx.textBaseline = "middle";
   const m = gx.measureText(txt);
   const isTopMark = /^[\u0E31\u0E34-\u0E37\u0E47-\u0E4E]+$/.test(txt);
-  const isWideMark = txt === "้";
   const isTriMark = txt === "๊";
   const isBotMark = /^[\u0E38-\u0E3A]+$/.test(txt);
   const fAsc = m.fontBoundingBoxAscent || fs * 0.95;
@@ -2205,7 +2106,6 @@ async function demo() {
     marks(false);
     dotM();
 
-    /* สร้างเลเยอร์หน้ากาก (Mask) เพื่อให้หมึกถมเต็มความหนาตัวอักษรพอดีโดยไม่ล้นไปเส้นอื่น */
     const mask = document.createElement("canvas");
     mask.width = W;
     mask.height = H;
@@ -2259,14 +2159,12 @@ async function demo() {
         mx.stroke();
       }
 
-      /* ตัดเฉพาะส่วนของตัวอักษรที่หัวพู่กันลากผ่าน */
       rx.globalCompositeOperation = "source-over";
       rx.clearRect(0, 0, W, H);
       rx.drawImage(mask, 0, 0);
       rx.globalCompositeOperation = "source-in";
       rx.drawImage(g, 0, 0);
 
-      /* วาดเฉพาะเส้นทึบสาธิตลงกระดาน */
       marks(false);
       dotM();
       dx.drawImage(revealed, 0, 0);
